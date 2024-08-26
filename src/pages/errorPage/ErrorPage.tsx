@@ -12,7 +12,7 @@ const ErrorPage = () => {
         <img src={errorPic} alt="" className="w-full" />
       </div>
       <button
-        className="px-5 py-1 text-xl font-semibold bg-[#FCBF49] rounded-3xl text-black"
+        className="btn bg-[#003049] border-none text-white w-fit text-xl font-semibold"
         onClick={() => navigate("/")}
       >
         Home

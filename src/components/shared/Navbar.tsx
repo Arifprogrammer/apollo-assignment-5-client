@@ -110,7 +110,7 @@ const Navbar = () => {
   );
 
   return (
-    <section className="fixed z-10 w-full bg-[#003049]">
+    <section className="fixed z-30 w-full bg-[#003049]">
       <div className="navbar p-0 my-container rounded-sm text-white">
         <div className="navbar-start">
           <div className="dropdown">
