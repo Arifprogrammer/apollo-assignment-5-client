@@ -13,7 +13,7 @@ const Services = () => {
   return (
     <>
       <div
-        className=" py-8 px-4 lg:p-10 text-center space-y-4 rounded-lg bg-[#F77F00] shadow-lg"
+        className=" py-8 px-4 lg:p-10 text-center space-y-4 rounded-lg bg-[#FCBF49] shadow-lg"
         data-aos="fade-up"
         data-aos-delay="40"
         data-aos-duration="500"
@@ -28,7 +28,7 @@ const Services = () => {
         </p>
       </div>
       <div
-        className=" py-8 px-4 lg:p-10 text-center space-y-4 rounded-lg bg-[#F77F00] shadow-lg"
+        className=" py-8 px-4 lg:p-10 text-center space-y-4 rounded-lg bg-[#FCBF49] shadow-lg"
         data-aos="fade-up"
         data-aos-delay="60"
         data-aos-duration="1000"
@@ -43,7 +43,7 @@ const Services = () => {
         </p>
       </div>
       <div
-        className=" py-8 px-4 lg:p-10 text-center space-y-4 rounded-lg bg-[#F77F00] shadow-lg"
+        className=" py-8 px-4 lg:p-10 text-center space-y-4 rounded-lg bg-[#FCBF49] shadow-lg"
         data-aos="fade-up"
         data-aos-delay="80"
         data-aos-duration="1500"
@@ -58,7 +58,7 @@ const Services = () => {
         </p>
       </div>
       <div
-        className=" py-8 px-4 lg:p-10 text-center space-y-4 rounded-lg bg-[#F77F00] shadow-lg"
+        className=" py-8 px-4 lg:p-10 text-center space-y-4 rounded-lg bg-[#FCBF49] shadow-lg"
         data-aos="fade-up"
         data-aos-delay="100"
         data-aos-duration="2000"

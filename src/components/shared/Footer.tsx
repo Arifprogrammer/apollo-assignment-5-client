@@ -1,22 +1,40 @@
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaYoutube, FaLinkedin } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-black">
+    <footer className="bg-[#003049]">
       <div className="footer p-10 my-container text-white">
         <div className="mx-auto lg:ml-0 text-center lg:text-start">
           <div className="mx-auto lg:ml-0">
             <Link to="/">
-              <h1 className="text-xl lg:text-3xl font-semibold">
-                Key<span className="italic text-rose-500">stroke</span>
-              </h1>
+              <div className="flex items-end gap-1 pb-2">
+                <h1 className="text-7xl font-bold text-[#F77F00] font-serif italic">
+                  R
+                </h1>
+                <p className="italic text-xl font-semibold mb-1.5">
+                  eserve <br /> ealm
+                </p>
+              </div>
             </Link>
           </div>
           <p>
-            Keystroke Industries Ltd.
+            Reserve Realm Industries Ltd.
             <br />
-            Providing quality products since 2012
+            Providing digitalize & comfort rooms since 2012
           </p>
+          <div className="flex items-center gap-4 text-2xl">
+            <a href="https://facebook.com" target="_blank">
+              <FaFacebookSquare className="cursor-pointer" />
+            </a>
+            <a href="https://linkedin.com" target="_blank">
+              <FaLinkedin className="cursor-pointer" />
+            </a>
+            <a href="https://youtube.com" target="_blank">
+              <FaYoutube className="cursor-pointer" />
+            </a>
+          </div>
         </div>
         <div className="mx-auto lg:ml-0">
           <span className="footer-title mb-6 mx-auto lg:ml-0">Services</span>
@@ -29,26 +47,27 @@ const Footer = () => {
           <span className="footer-title mb-6 mx-auto lg:ml-0">Company</span>
           <Link to="/about">
             <p className="link link-hover mx-auto lg:ml-0 hover:underline">
-              About us
+              info@reserve.com
             </p>
           </Link>
           <Link to="contact">
             <p className="link link-hover mx-auto lg:ml-0 hover:underline">
-              Contact
+              +537 2234230
             </p>
           </Link>
-          <a className="link link-hover mx-auto lg:ml-0">Jobs</a>
-          <a className="link link-hover mx-auto lg:ml-0">Press kit</a>
+          <a className="link link-hover mx-auto lg:ml-0">New York, USA</a>
         </div>
         <div className="mx-auto lg:ml-0">
           <span className="footer-title mb-6 mx-auto lg:ml-0">Legal</span>
-          <a className="link link-hover mx-auto lg:ml-0">Terms of use</a>
+          <a className="link link-hover mx-auto lg:ml-0">Terms of Service</a>
           <a className="link link-hover mx-auto lg:ml-0">Privacy policy</a>
           <a className="link link-hover mx-auto lg:ml-0">Cookie policy</a>
         </div>
       </div>
-      <div className="footer footer-center p-4 bg-slate-900 text-white">
-        <p>Copyright © 2024 - All right reserved by Keystroke Industries Ltd</p>
+      <div className="footer footer-center p-4 bg-[#154f6e] text-white">
+        <p>
+          Copyright © 2024 - All right reserved by Reserve Realm Industries Ltd
+        </p>
       </div>
     </footer>
   );
