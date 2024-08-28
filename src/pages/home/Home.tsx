@@ -7,6 +7,16 @@ import Services from "./services/Services";
 import Lottie from "lottie-react";
 import calender from "../../assets/animation/calendar.json";
 import payment from "../../assets/animation/digital-payment.json";
+import select from "../../assets/steps/selection.webp";
+import booking from "../../assets/steps/booking.webp";
+import time from "../../assets/steps/time.webp";
+import React from "react";
+
+const cardData = [
+  { image: select, title: "1. Select a Room" },
+  { image: time, title: "2. Choose Date & Time" },
+  { image: booking, title: "3. Confirm Booking" },
+];
 
 const Home = () => {
   /* const { isLoading, refetch } = useGetProductsQuery(3);
@@ -31,7 +41,7 @@ const Home = () => {
             <h4 className="text-sm md:text-xl lg:text-3xl font-semibold text-white">
               Efficient, hassle-free room booking for all your meeting needs.
             </h4>
-            <button className="btn bg-[#003049] border-none text-white w-fit mx-auto">
+            <button className="btn bg-[#F77F00] border-none text-black w-fit mx-auto font-bold">
               Book Now
             </button>
           </div>
@@ -73,7 +83,7 @@ const Home = () => {
 
       {/* //* Why choose us */}
       <h1 className="text-center text-2xl md:text-4xl text-[#003049] mt-24 font-bold">
-        Why Choose Us
+        Why Choose Us?
       </h1>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24 my-container">
         <div className="relative">
@@ -82,16 +92,37 @@ const Home = () => {
             loop={true}
             style={{ height: 500 }}
           />
-          <h1 className="text-3xl text-[#154f6e] font-semibold absolute bottom-10 left-1/2 transform -translate-x-1/2 text-nowrap">
+          <h1 className="text-3xl text-[#154f6e] font-bold absolute bottom-10 left-1/2 transform -translate-x-1/2 text-nowrap">
             Seamless Booking Experience
           </h1>
         </div>
         <div className="relative">
           <Lottie animationData={payment} loop={true} style={{ height: 500 }} />
-          <h1 className="text-3xl text-[#154f6e] font-semibold absolute bottom-10 left-1/2 transform -translate-x-1/2 text-nowrap">
+          <h1 className="text-3xl text-[#154f6e] font-bold absolute bottom-10 left-1/2 transform -translate-x-1/2 text-nowrap">
             Secure Transactions
           </h1>
         </div>
+      </section>
+
+      {/* //* How It Works */}
+      <h1 className="text-center text-2xl md:text-4xl text-[#003049] mt-24 mb-6 font-bold">
+        How It Works
+      </h1>
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 my-container">
+        {cardData.map((card) => {
+          return (
+            <React.Fragment key={card.title}>
+              <div className="card bg-[#154f6e] text-white font-semibold w-full overflow-hidden shadow-xl">
+                <figure>
+                  <img src={card.image} alt="select-room" />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title">{card.title}</h2>
+                </div>
+              </div>
+            </React.Fragment>
+          );
+        })}
       </section>
     </main>
   );
