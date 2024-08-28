@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"; */
 import room from "../../assets/images/room-banner-edited.webp";
 import Services from "./services/Services";
 import Lottie from "lottie-react";
+import Testimonials from "./testimonials/Testimonials";
 import calender from "../../assets/animation/calendar.json";
 import payment from "../../assets/animation/digital-payment.json";
 import select from "../../assets/steps/selection.webp";
@@ -123,6 +124,14 @@ const Home = () => {
             </React.Fragment>
           );
         })}
+      </section>
+
+      {/* //*Testimonials */}
+      <h1 className="text-center text-2xl md:text-4xl text-[#003049] mt-24 mb-6 font-bold">
+        Reviews
+      </h1>
+      <section className="mb-24 bg-gray-100 rounded-lg my-container">
+        <Testimonials />
       </section>
     </main>
   );

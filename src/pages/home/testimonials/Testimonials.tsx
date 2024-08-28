@@ -7,28 +7,29 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import user1 from "../../../assets/images/users/user-1.jpg";
 import user2 from "../../../assets/images/users/user-2.jpg";
 import user3 from "../../../assets/images/users/user-3.jpg";
+import React from "react";
 
 const reviews = [
   {
     userName: "GamerGuy007",
     img: user1,
-    title: "Best Clicky Keys Ever!",
+    title: "Effortless Scheduling",
     description:
-      "I finally found a keyboard with clicky keys that are satisfying to type on without being too loud for my roommates. The build quality is amazing, and I can't believe the difference it's made in my gaming performance.",
+      "I love how easy it is to find available meeting times and book a room. The system is intuitive and user-friendly, saving me a lot of time.",
   },
   {
     userName: "KeyboardEnthusiast",
     img: user2,
-    title: "A Dream Keyboard Come True",
+    title: "Reliable and Efficient",
     description:
-      "This keyboard is a work of art! The customization options are endless, and the typing experience is truly exceptional. I'm so happy I invested in a high-quality mechanical keyboard, and this shop definitely exceeded my expectations.",
+      "The booking system has been a lifesaver for our team. It's always reliable and ensures that everyone knows when and where their meetings are scheduled. Highly recommended!",
   },
   {
     userName: "QuietTypist",
     img: user3,
-    title: "Perfect for Quiet Workspaces",
+    title: "Great Features, Great Value",
     description:
-      "I was worried about finding a mechanical keyboard that wouldn't be too noisy for the office. This shop recommended a silent switch option that's been a lifesaver! Now I can enjoy the benefits of a mechanical keyboard without disturbing anyone around me.",
+      "I've been using this booking system for months and I'm really impressed with the features. It's not only easy to use but also offers great value for the price. I'd definitely recommend it to others.",
   },
 ];
 
@@ -53,21 +54,23 @@ const Testimonials = () => {
           return (
             <SwiperSlide key={i}>
               <div className="py-12 px-4 flex flex-col justify-center items-center w-full gap-6">
-                <div className="flex gap-2 text-yellow-500">
-                  <FaStar className="text-black" />
-                  <FaStar className="text-black" />
-                  <FaStar className="text-black" />
-                  <FaStar className="text-black" />
-                  <FaStar className="text-black" />
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => {
+                    return (
+                      <React.Fragment key={star}>
+                        <FaStar className="text-[#F77F00]" />
+                      </React.Fragment>
+                    );
+                  })}
                 </div>
-                <h3 className="text-2xl text-rose-500 font-bold text-center mx-auto">
+                <h3 className="text-2xl text-[#154f6e] font-bold text-center mx-auto">
                   {review.title}
                 </h3>
                 <p className="text-center mx-auto w-4/5 md:w-1/2 text-gray-600">
                   {review.description}
                 </p>
                 <div className="avatar pt-4">
-                  <div className="ring-black ring-offset-base-100 w-12 rounded-full ring ring-offset-2">
+                  <div className="ring-[#F77F00] ring-offset-[#F77F00] w-12 rounded-full ring ring-offset-2">
                     <img src={review.img} alt="user" />
                   </div>
                 </div>
