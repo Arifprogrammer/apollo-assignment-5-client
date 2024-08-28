@@ -1,9 +1,10 @@
 import room from "../../assets/images/room-banner-edited.webp";
+import Services from "./services/Services";
 
 const Home = () => {
   return (
     <main>
-      {/* //*Hero */}
+      {/* //* Hero */}
       <section className="pt-12 md:pt-24 bg-[#003049]">
         <div className="relative">
           <img src={room} alt="keyboard" className="size-full" />
@@ -21,6 +22,14 @@ const Home = () => {
             </button>
           </div>
         </div>
+      </section>
+
+      {/* //* Services */}
+      <h1 className="text-center text-2xl md:text-4xl text-[#003049] mt-24 mb-6 font-bold">
+        Services
+      </h1>
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:md:grid-cols-4 gap-6 mb-24 my-container">
+        <Services />
       </section>
     </main>
   );
