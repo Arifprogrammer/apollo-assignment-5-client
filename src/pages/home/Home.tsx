@@ -87,7 +87,7 @@ const Home = () => {
         Why Choose Us?
       </h1>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24 my-container">
-        <div className="relative">
+        <div className="relative -mt-10">
           <Lottie
             animationData={calender}
             loop={true}
