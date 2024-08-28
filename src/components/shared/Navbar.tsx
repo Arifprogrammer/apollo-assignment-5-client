@@ -1,3 +1,4 @@
+import { TfiUser } from "react-icons/tfi";
 import { Link, NavLink } from "react-router-dom";
 /* import { getTotalOrderQuantity } from "../../redux/features/cart/cartSlice";
 import { useAppSelector } from "../../redux/hook"; */
@@ -87,11 +88,7 @@ const Navbar = () => {
         </details> */}
         <div className="dropdown !p-0">
           <div tabIndex={0} role="button">
-            <img
-              src="https://i.ibb.co/TBz7QSQ/rugby-min.png"
-              alt="user"
-              className="rounded-full size-10 object-cover object-top"
-            />
+            <TfiUser className="size-9" />
           </div>
           <ul
             tabIndex={0}
@@ -170,11 +167,7 @@ const Navbar = () => {
           </ul>
           <div className="dropdown lg:hidden mr-2 !p-0">
             <div tabIndex={0} role="button">
-              <img
-                src="https://i.ibb.co/TBz7QSQ/rugby-min.png"
-                alt="user"
-                className="rounded-full size-10 object-cover object-top"
-              />
+              <TfiUser className="size-9" />
             </div>
             <ul
               tabIndex={0}
