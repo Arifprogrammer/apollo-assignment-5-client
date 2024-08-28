@@ -58,7 +58,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/signup"
+          to="/register"
           className={({ isActive }) =>
             isActive
               ? "text-[#F77F00] font-semibold lg:border-b-4 border-b-[#F77F00]"

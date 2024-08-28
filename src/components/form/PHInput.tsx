@@ -5,16 +5,9 @@ type TInputProps = {
   name: string;
   label?: string;
   disabled?: boolean;
-  defaultValue?: string | number;
 };
 
-const PHInput = ({
-  type,
-  name,
-  label,
-  disabled,
-  defaultValue,
-}: TInputProps) => {
+const PHInput = ({ type, name, label, disabled }: TInputProps) => {
   return (
     <div>
       <Controller
@@ -23,7 +16,7 @@ const PHInput = ({
           <>
             <label
               htmlFor={name}
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-md font-medium text-gray-800 mt-2"
             >
               {label}
             </label>
@@ -31,10 +24,10 @@ const PHInput = ({
               {...field}
               type={type}
               id={name}
-              defaultValue={defaultValue}
               disabled={disabled}
+              className="mt-2 bg-transparent border-2 border-[#154f6e] rounded-md w-full p-2 focus:outline-none focus:border-[#F77F00]"
             />
-            {error && <small style={{ color: "red" }}>{error.message}</small>}
+            {error && <small className="text-red-600">{error.message}</small>}
           </>
         )}
       />
