@@ -42,7 +42,7 @@ const Home = () => {
             <h4 className="text-sm md:text-xl lg:text-3xl font-semibold text-white">
               Efficient, hassle-free room booking for all your meeting needs.
             </h4>
-            <button className="btn bg-[#F77F00] border-none text-black w-fit mx-auto font-bold">
+            <button className="btn bg-[#D62828] border-none text-white w-fit mx-auto font-bold">
               Book Now
             </button>
           </div>
@@ -93,13 +93,13 @@ const Home = () => {
             loop={true}
             style={{ height: 500 }}
           />
-          <h1 className="text-3xl text-[#154f6e] font-bold absolute bottom-10 left-1/2 transform -translate-x-1/2 text-nowrap">
+          <h1 className="text-xl md:text-3xl text-[#154f6e] font-bold absolute bottom-10 left-1/2 transform -translate-x-1/2 text-nowrap">
             Seamless Booking Experience
           </h1>
         </div>
         <div className="relative">
           <Lottie animationData={payment} loop={true} style={{ height: 500 }} />
-          <h1 className="text-3xl text-[#154f6e] font-bold absolute bottom-10 left-1/2 transform -translate-x-1/2 text-nowrap">
+          <h1 className="text-xl md:text-3xl text-[#154f6e] font-bold absolute bottom-10 left-1/2 transform -translate-x-1/2 text-nowrap">
             Secure Transactions
           </h1>
         </div>

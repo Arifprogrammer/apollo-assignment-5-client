@@ -24,7 +24,7 @@ const Footer = () => {
             <br />
             Providing digitalize & comfort rooms since 2012
           </p>
-          <div className="flex items-center gap-4 text-2xl">
+          <div className="flex items-center gap-4 text-2xl mx-auto md:ml-0">
             <a href="https://facebook.com" target="_blank">
               <FaFacebookSquare className="cursor-pointer" />
             </a>

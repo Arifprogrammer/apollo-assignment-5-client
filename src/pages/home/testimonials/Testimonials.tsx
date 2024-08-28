@@ -58,19 +58,19 @@ const Testimonials = () => {
                   {[1, 2, 3, 4, 5].map((star) => {
                     return (
                       <React.Fragment key={star}>
-                        <FaStar className="text-[#F77F00]" />
+                        <FaStar className="text-[#D62828]" />
                       </React.Fragment>
                     );
                   })}
                 </div>
-                <h3 className="text-2xl text-[#154f6e] font-bold text-center mx-auto">
+                <h3 className="text-2xl text-[#D62828] font-bold text-center mx-auto">
                   {review.title}
                 </h3>
                 <p className="text-center mx-auto w-4/5 md:w-1/2 text-gray-600">
                   {review.description}
                 </p>
                 <div className="avatar pt-4">
-                  <div className="ring-[#F77F00] ring-offset-[#F77F00] w-12 rounded-full ring ring-offset-2">
+                  <div className="ring-[#D62828] ring-offset-[#D62828] w-12 rounded-full ring ring-offset-2">
                     <img src={review.img} alt="user" />
                   </div>
                 </div>
