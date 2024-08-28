@@ -1,6 +1,4 @@
-import Aos from "aos";
-import "aos/dist/aos.css";
-import React, { useEffect } from "react";
+import React from "react";
 import about from "../../assets/animation/about.json";
 import Lottie from "lottie-react";
 import user1 from "../../assets/images/users/user-1.jpg";
@@ -14,9 +12,6 @@ const cardData = [
 ];
 
 const About = () => {
-  useEffect(() => {
-    Aos.init();
-  }, []);
   return (
     <section className="text-black px-6 md:px-0 w-full md:w-1/2 mx-auto my-16 md:my-24 flex flex-col gap-4 items-center text-center">
       <div className="-mt-20">
