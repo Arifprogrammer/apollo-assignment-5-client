@@ -58,14 +58,14 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/register"
+          to="/login"
           className={({ isActive }) =>
             isActive
               ? "text-[#F77F00] font-semibold lg:border-b-4 border-b-[#F77F00]"
               : "font-semibold lg:border-b-4 lg:border-b-white hover:border-b-[#F77F00] lg:text-white hover:text-[#F77F00] lg:transition lg:duration-200"
           }
         >
-          Register
+          Login / Register
         </NavLink>
       </li>
       <li className="hidden lg:block">

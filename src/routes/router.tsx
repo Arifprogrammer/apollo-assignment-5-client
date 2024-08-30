@@ -11,6 +11,7 @@ import Products from "../pages/products/Products";
 import SingleProduct from "../pages/singleProduct/SingleProduct";
 import Success from "../pages/success/Success";
 import Register from "../pages/auth/Register";
+import Login from "../pages/auth/Login";
 
 export const router: ReturnType<typeof createBrowserRouter> =
   createBrowserRouter([
@@ -63,6 +64,11 @@ export const router: ReturnType<typeof createBrowserRouter> =
     {
       path: "/register",
       element: <Register />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
       errorElement: <ErrorPage />,
     },
   ]);
