@@ -9,9 +9,8 @@ export const registrationSchema = z.object({
     .string({ required_error: "Email is required" })
     .email({ message: "Email format is incorrect" }),
 
-  phone: z.number({
+  phone: z.string({
     required_error: "Phone number is required",
-    message: "Phone number format is incorrect",
   }),
   /* .regex(/^\+?[1-9]\d{1,14}$/, {
         message:
