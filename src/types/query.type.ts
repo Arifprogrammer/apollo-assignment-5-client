@@ -1,6 +1,6 @@
 export type TQueryType = {
   searchTerm: string;
-  limit: string;
+  limit: number;
   sort: string;
-  page: string;
+  page: number;
 };

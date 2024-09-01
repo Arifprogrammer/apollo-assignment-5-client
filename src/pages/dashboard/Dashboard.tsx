@@ -10,7 +10,7 @@ const Dashboard = () => {
           {/* Page content here */}
           <label
             htmlFor="my-drawer-2"
-            className="btn border-rose-500 text-rose-500 bg-white absolute top-2 left-2 drawer-button lg:hidden"
+            className="btn border-[#D62828] text-[#D62828] bg-white absolute top-2 left-2 drawer-button lg:hidden"
           >
             <FaAnglesRight />
           </label>
@@ -27,7 +27,7 @@ const Dashboard = () => {
             <li>
               <Link
                 to="/"
-                className="font-semibold border-b-4 border-b-white hover:border-b-rose-500 text-white hover:text-rose-500 lg:transition lg:duration-200 text-sm lg:text-lg"
+                className="font-semibold border-b-4 border-b-white hover:border-b-[#D62828] text-white hover:text-[#D62828] lg:transition lg:duration-200 text-sm lg:text-lg"
               >
                 Home
               </Link>
@@ -35,7 +35,7 @@ const Dashboard = () => {
             <li>
               <Link
                 to="/dashboard"
-                className="text-nowrap font-semibold border-b-4 border-b-white hover:border-b-rose-500 text-white hover:text-rose-500 lg:transition lg:duration-200 text-sm lg:text-lg"
+                className="text-nowrap font-semibold border-b-4 border-b-white hover:border-b-[#D62828] text-white hover:text-[#D62828] lg:transition lg:duration-200 text-sm lg:text-lg"
               >
                 Product Management
               </Link>

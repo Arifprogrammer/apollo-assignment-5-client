@@ -22,7 +22,7 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #f43f5e;
+  background: #d62828;
   cursor: pointer;
 }
 
@@ -30,12 +30,12 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #f43f5e;
+  background: #d62828;
   cursor: pointer;
 }
 
 .bubble {
-  background: #f43f5e;
+  background: #d62828;
   color: white;
   padding: 4px 12px;
   position: absolute;
@@ -52,7 +52,7 @@
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 5px solid #f43f5e;
+  border-top: 5px solid #d62828;
   bottom: -5px;
   left: 50%;
   transform: translateX(-50%);

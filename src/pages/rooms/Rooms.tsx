@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import Room from "../home/room/Room";
 import { useGetRoomsQuery } from "../../redux/features/rooms/roomsApi";
-import { debounce, select } from "radash";
+import { debounce, list, select } from "radash";
 import { TQueryType, TRoom } from "../../types";
 import "../rooms/Rooms.css";
+import Pagination from "../../components/ui/pagination/Pagination";
 
 const Rooms = () => {
   //* constants
+  const dataLimit = 6;
   const minRangeValue = 0;
   const maxPriceRangeValue = 500;
   const maxCapacityRangeValue = 30;
@@ -22,13 +24,14 @@ const Rooms = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>("Filter");
   const [selectedSort, setSelectedSort] = useState<string>("Sort by Price");
   const [search, setSearch] = useState<string>("");
-  const [page, setPage] = useState<string>("1");
+  const [page, setPage] = useState<number>(1);
   const [query, setQuery] = useState<TQueryType | undefined>(undefined);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   //* hooks
-  const { isLoading, refetch, data } = useGetRoomsQuery(query);
+  const { isLoading, data } = useGetRoomsQuery(query);
   const allRooms = data?.data as TRoom[];
+  const totalPage = data?.meta.totalPage;
 
   //? DebouncedSetMinValue
   const debouncedUpdateMinValue = debounce({ delay: 50 }, (value: number) => {
@@ -97,7 +100,7 @@ const Rooms = () => {
   };
 
   //? DebouncedSetSearch
-  const debouncedSetSearch = debounce({ delay: 200 }, (value: string) => {
+  const debouncedSetSearch = debounce({ delay: 800 }, (value: string) => {
     setSearch(value);
   });
 
@@ -113,6 +116,7 @@ const Rooms = () => {
 
   //? Handle filter change
   const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setMinSliderValue(0);
     setSelectedFilter(event.target.value);
   };
 
@@ -124,16 +128,11 @@ const Rooms = () => {
     setMaxPriceSliderValue(500);
     setMaxCapacitySliderValue(30);
     setSearch("");
-    setPage("1");
+    setPage(1);
     setRooms(allRooms);
 
     (inputRef.current as HTMLInputElement).value = "";
   };
-
-  //* effects
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
 
   useEffect(() => {
     if (allRooms?.length) setRooms(allRooms);
@@ -141,7 +140,7 @@ const Rooms = () => {
 
   useEffect(() => {
     const query: TQueryType = {
-      limit: "6",
+      limit: dataLimit,
       page: page,
       searchTerm: search,
       sort: selectedSort === "Sort by Price" ? "" : selectedSort,
@@ -204,18 +203,18 @@ const Rooms = () => {
           <input
             name="search"
             ref={inputRef}
-            className="input input-bordered border-rose-500 rounded-l-3xl bg-transparent join-item w-full md:w-96 text-black"
+            className="input input-bordered border-[#D62828] rounded-l-3xl bg-transparent join-item w-full md:w-96 text-black"
             placeholder="search..."
             onChange={handleSearch}
           />
-          <button className="btn join-item rounded-r-full bg-rose-500 text-white border-none">
+          <button className="btn join-item rounded-r-full bg-[#D62828] text-white border-none">
             Search
           </button>
         </div>
 
         <div className="flex gap-2 items-end text-black">
           <select
-            className="select border-rose-500 max-w-xs bg-transparent text-black w-36"
+            className="select border-[#D62828] max-w-xs bg-transparent text-black w-36"
             value={selectedFilter}
             onChange={handleFilterChange}
           >
@@ -295,7 +294,7 @@ const Rooms = () => {
 
         <div className="inline-flex gap-4 md:gap-6 items-center">
           <select
-            className="select border-rose-500 max-w-xs bg-transparent text-black w-36"
+            className="select border-[#D62828] max-w-xs bg-transparent text-black w-36"
             value={selectedSort}
             onChange={handleSortChange}
           >
@@ -330,6 +329,17 @@ const Rooms = () => {
             );
           })}
       </section>
+      <div className="text-center mb-6 md:mb-8">
+        {allRooms?.length !== 0 &&
+          list(1, totalPage).map((pageNumber) => (
+            <Pagination
+              key={pageNumber}
+              index={pageNumber}
+              page={page}
+              setPage={setPage}
+            />
+          ))}
+      </div>
     </>
   );
 };

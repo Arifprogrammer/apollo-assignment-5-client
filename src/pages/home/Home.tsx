@@ -12,6 +12,10 @@ import select from "../../assets/steps/selection.webp";
 import booking from "../../assets/steps/booking.webp";
 import time from "../../assets/steps/time.webp";
 import React from "react";
+import { useGetRoomsQuery } from "../../redux/features/rooms/roomsApi";
+import { TRoom } from "../../types";
+import Room from "./room/Room";
+import { Link } from "react-router-dom";
 
 const cardData = [
   { image: select, title: "1. Select a Room" },
@@ -20,13 +24,14 @@ const cardData = [
 ];
 
 const Home = () => {
-  /* const { isLoading, refetch } = useGetProductsQuery(3);
-  const { products } = useAppSelector(getAllProducts); */
+  const { isLoading, data } = useGetRoomsQuery({
+    limit: 3,
+    page: 1,
+    searchTerm: "",
+    sort: "",
+  });
+  const allRooms = data?.data as TRoom[];
 
-  //* effects
-  /* useEffect(() => {
-    refetch();
-  }, [refetch]); */
   return (
     <main>
       {/* //* Hero */}
@@ -58,7 +63,7 @@ const Home = () => {
       </section>
 
       {/* //* Featured Rooms */}
-      {/*  <h1 className="text-center text-2xl md:text-4xl text-[#003049] mt-24 mb-6 font-bold">
+      <h1 className="text-center text-2xl md:text-4xl text-[#003049] mt-24 mb-6 font-bold">
         Featured Rooms
       </h1>
       {isLoading && (
@@ -67,20 +72,20 @@ const Home = () => {
         </div>
       )}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 my-container">
-        {products &&
-          products.map((product) => {
+        {allRooms &&
+          allRooms.map((room) => {
             return (
-              <React.Fragment key={product._id}>
-                <Product product={product} />
+              <React.Fragment key={room._id}>
+                <Room room={room} />
               </React.Fragment>
             );
           })}
         <Link to="/rooms" className="col-span-full w-fit mx-auto">
-          <button className="btn bg-rose-500 text-white border-none px-20">
+          <button className="btn bg-[#D62828] text-white border-none px-20">
             See all
           </button>
         </Link>
-      </section> */}
+      </section>
 
       {/* //* Why choose us */}
       <h1 className="text-center text-2xl md:text-4xl text-[#003049] mt-24 font-bold">
