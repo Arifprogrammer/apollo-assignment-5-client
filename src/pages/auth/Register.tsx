@@ -11,6 +11,15 @@ import Swal from "sweetalert2";
 const Register = () => {
   const navigate = useNavigate();
   const [register] = useRegisterMutation();
+
+  const defaultValues = {
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    address: "",
+  };
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await register(data).unwrap();
@@ -59,6 +68,7 @@ const Register = () => {
         <div className="card w-80 md:w-[30rem] shrink-0 shadow-2xl text-black p-4 md:p-6 border-2 border-[#154f6e]">
           <PHForm
             onSubmit={onSubmit}
+            defaultValues={defaultValues}
             resolver={zodResolver(registrationSchema)}
           >
             <PHInput type="text" name="name" label="Name"></PHInput>

@@ -8,6 +8,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 import { logout } from "../features/auth/authSlice";
+import Swal from "sweetalert2";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
@@ -29,13 +30,42 @@ const baseQueryWithToken: BaseQueryFn<
   DefinitionType
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 > = async (args, api, extraOptions): Promise<any> => {
-  const result = await baseQuery(args, api, extraOptions);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result = (await baseQuery(args, api, extraOptions)) as any;
 
   if (result?.error?.status === 404) {
-    // toast.error(result.error.data.message);
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+    });
+    Toast.fire({
+      icon: "error",
+      title: `${result?.error?.data?.message}`,
+    });
   }
   if (result?.error?.status === 403) {
-    // toast.error(result.error.data.message);
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+    });
+    Toast.fire({
+      icon: "error",
+      title: `${result?.error?.data?.message}`,
+    });
   }
   if (result?.error?.status === 401) {
     api.dispatch(logout());
@@ -47,6 +77,6 @@ const baseQueryWithToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithToken,
-  tagTypes: ["semester", "courses", "offeredCourse"],
+  tagTypes: ["rooms"],
   endpoints: () => ({}),
 });

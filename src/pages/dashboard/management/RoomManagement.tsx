@@ -1,37 +1,35 @@
 import {
-  useDeleteProductMutation,
-  useGetProductsQuery,
-} from "../../../redux/features/products/productsApi";
-import { getAllProducts } from "../../../redux/features/products/productSlice";
-import ProductsRowsTable from "../../../components/ui/productsManagement/ProductsRowsTable";
+  useGetRoomsQuery,
+  useDeleteRoomMutation,
+} from "../../../redux/features/rooms/roomsApi";
+import { getAllRooms } from "../../../redux/features/rooms/roomSlice";
+import RoomsRowsTable from "../../../components/ui/roomsManagement/RoomsRowsTable";
 import { useAppSelector } from "../../../redux/hook";
 import { useEffect, useState } from "react";
-import { TProduct } from "../../../types";
+import { TRoom } from "../../../types";
 import Swal from "sweetalert2";
-import EditProductModal from "../../../components/ui/productsManagement/EditProductModal";
+import EditRoomModal from "../../../components/ui/roomsManagement/EditRoomModal";
 
 const InitialProduct = {
-  id: "",
-  brand: "",
-  description: "",
-  image: "",
-  name: "",
-  price: 0,
-  rating: 0,
-  availableQuantity: 0,
-  orderQuantity: 0,
   _id: "",
+  name: "",
+  images: [],
+  roomNo: 0,
+  floorNo: 0,
+  capacity: 0,
+  pricePerSlot: 0,
+  amenities: [],
 };
 
-const ProductManagement = () => {
+const RoomManagement = () => {
   const [open, setOpen] = useState(false);
-  const [specificProduct, setSpecificProduct] = useState<TProduct | null>(null);
+  const [specificRoom, setSpecificRoom] = useState<TRoom | null>(null);
 
-  const { isLoading, refetch } = useGetProductsQuery(0);
-  const { products } = useAppSelector(getAllProducts);
-  const [deleteProduct] = useDeleteProductMutation();
+  const { isLoading, refetch } = useGetRoomsQuery(undefined);
+  const { rooms } = useAppSelector(getAllRooms);
+  const [deleteProduct] = useDeleteRoomMutation();
 
-  const handleDeleteProduct = (id: string) => {
+  const handleDeleteRoom = (id: string) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -51,12 +49,12 @@ const ProductManagement = () => {
   };
 
   const handleCreateProduct = () => {
-    setSpecificProduct(InitialProduct);
+    setSpecificRoom(InitialProduct);
     setOpen(true);
   };
 
-  const handleEditProduct = (product: TProduct) => {
-    setSpecificProduct(product);
+  const handleEditRoom = (room: TRoom) => {
+    setSpecificRoom(room);
     setOpen(true);
   };
 
@@ -71,7 +69,7 @@ const ProductManagement = () => {
         className="w-fit btn bg-black text-white mt-4 md:mt-0 mb-2"
         onClick={() => handleCreateProduct()}
       >
-        Add Product
+        Add Room
       </button>
       <div className="overflow-x-auto min-h-screen text-slate-800">
         <table className="table">
@@ -87,14 +85,14 @@ const ProductManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {products.length &&
-              products?.map((product, index) => (
-                <ProductsRowsTable
-                  key={product._id}
-                  product={product}
+            {rooms.length &&
+              rooms?.map((room, index) => (
+                <RoomsRowsTable
+                  key={room._id}
+                  room={room}
                   index={index}
-                  handleEditProduct={handleEditProduct}
-                  handleDeleteProduct={handleDeleteProduct}
+                  handleEditRoom={handleEditRoom}
+                  handleDeleteRoom={handleDeleteRoom}
                 />
               ))}
           </tbody>
@@ -104,24 +102,24 @@ const ProductManagement = () => {
             <span className="loading loading-bars loading-md"></span>
           </div>
         )}
-        {!products?.length && (
+        {!rooms?.length && (
           <>
             <p className="mt-10 text-rose-600 font-bold text-lg text-center">
-              You have no product !!!
+              You have no room !!!
             </p>
           </>
         )}
       </div>
-      {specificProduct && (
-        <EditProductModal
-          key={specificProduct._id}
+      {specificRoom && (
+        <EditRoomModal
+          key={specificRoom._id}
           open={open}
           setOpen={setOpen}
-          specificProduct={specificProduct}
+          specificRoom={specificRoom}
         />
       )}
     </>
   );
 };
 
-export default ProductManagement;
+export default RoomManagement;

@@ -1,1 +1,2 @@
-export * from "./product.type";
+export * from "./room.type";
+export * from "./query.type";

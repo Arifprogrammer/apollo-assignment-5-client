@@ -4,37 +4,75 @@ import { Dialog, Transition } from "@headlessui/react";
 import { InputField } from "../../form/InputField";
 import { isEqual, omit } from "radash";
 import {
-  useCreateProductMutation,
-  useUpdateSingleProductMutation,
-} from "../../../redux/features/products/productsApi";
-import { TProduct } from "../../../types";
+  useCreateRoomMutation,
+  useUpdateRoomMutation,
+} from "../../../redux/features/rooms/roomsApi";
+import { TRoom } from "../../../types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "react-router-dom";
+import { registrationSchema } from "../../../schemas/auth.schema";
+import PHForm from "../../form/PHForm";
+import PHInput from "../../form/PHInput";
+import Swal from "sweetalert2";
+import { SubmitHandler, FieldValues } from "react-hook-form";
+import { register } from "swiper/element";
 
-interface EditProductModalProps {
+interface EditRoomModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  specificProduct: TProduct;
+  specificRoom: TRoom;
 }
 
-export default function EditProductModal({
+export default function EditRoomModal({
   open,
   setOpen,
-  specificProduct,
-}: EditProductModalProps) {
-  const [updateProduct] = useUpdateSingleProductMutation();
-  const [createProduct] = useCreateProductMutation();
+  specificRoom,
+}: EditRoomModalProps) {
+  const [updateRoom] = useUpdateRoomMutation();
+  const [createRoom] = useCreateRoomMutation();
 
-  const {
-    _id,
-    availableQuantity,
-    image,
-    brand,
-    price,
-    rating,
-    name,
-    description,
-  } = specificProduct;
+  const { name, pricePerSlot } = specificRoom;
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const res = await updateRoom(data as TRoom).unwrap();
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: `${res.message}`,
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "error",
+        title: `${err.data.errorMessages[0].message}`,
+      });
+    }
+  };
+
+  /* const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as typeof event.target & {
       name: { value: string };
@@ -46,37 +84,33 @@ export default function EditProductModal({
       description: { value: string };
     };
 
-    const updatedProduct = {
+    const updatedRoom = {
       _id,
       name: target.name.value,
-      image: target.image.value,
-      brand: target.brand.value,
-      price: parseFloat(target.price.value),
-      rating: parseFloat(target.rating.value),
-      availableQuantity: parseFloat(target.availableQuantity.value),
-      description: target.description.value,
+      // images: target.image.value,
+      pricePerSlot: parseFloat(target.price.value),
     };
 
     const existingDataChange = isEqual(
-      omit(specificProduct, ["orderQuantity", "createdAt", "updatedAt"]),
-      updatedProduct
+      omit(specificRoom, ["createdAt", "updatedAt"]),
+      updatedRoom
     );
 
     if (!existingDataChange) {
-      if (updatedProduct._id) {
-        const { data } = await updateProduct(updatedProduct).unwrap();
+      if (updatedRoom._id) {
+        const { data } = await updateRoom(updatedRoom).unwrap();
 
         if (Object.keys(data).length) {
           setOpen(false);
         }
       } else {
-        const { data } = await createProduct(omit(updatedProduct, ["_id"]));
+        const { data } = await createRoom(omit(updatedRoom, ["_id"]));
         if (Object.keys(data).length) {
           setOpen(false);
         }
       }
     }
-  };
+  }; */
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -106,7 +140,56 @@ export default function EditProductModal({
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-black text-left shadow-xl transition-all sm:my-8 w-11/12 lg:w-[800px]">
                 <div className="md:px-4 md:pb-4 pt-5 sm:p-6 sm:pb-4">
-                  <form
+                  <div className="card-body p-5 md:p-8 gap-x-6 md:grid md:grid-cols-2 shadow-2xl text-black border-2 border-[#154f6e]">
+                    <PHForm
+                      onSubmit={onSubmit}
+                      defaultValues={specificRoom}
+                      // resolver={zodResolver(registrationSchema)}
+                    >
+                      <PHInput type="text" name="name" label="Name"></PHInput>
+                      <PHInput
+                        type="number"
+                        name="capacity"
+                        label="Capacity"
+                      ></PHInput>
+                      <PHInput
+                        type="number"
+                        name="floorNo"
+                        label="Floor No"
+                      ></PHInput>
+                      <PHInput
+                        type="number"
+                        name="roomNo"
+                        label="Room No"
+                      ></PHInput>
+                      <PHInput
+                        type="number"
+                        name="pricePerSlot"
+                        label="Price"
+                      ></PHInput>
+                      <PHInput
+                        type="text"
+                        name="amenities"
+                        label="Amenities"
+                      ></PHInput>
+                      <div className="flex gap-2 mt-2 ml-auto">
+                        <button
+                          type="button"
+                          onClick={() => setOpen(false)}
+                          className="inline-flex justify-center rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-blue-900 shadow-sm hover:bg-gray-400 hover:text-black sm:ml-3 sm:w-auto gap-x-2"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="inline-flex justify-center rounded-md bg-lime-400 px-3 py-2 text-sm font-semibold text-blue-900 shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto gap-x-2"
+                        >
+                          {name && pricePerSlot ? "Update" : "Create"}
+                        </button>
+                      </div>
+                    </PHForm>
+                  </div>
+                  {/* <form
                     className="card-body p-5 md:p-8 gap-x-6 md:grid md:grid-cols-2"
                     onSubmit={onSubmit}
                   >
@@ -183,10 +266,10 @@ export default function EditProductModal({
                         type="submit"
                         className="inline-flex justify-center rounded-md bg-lime-400 px-3 py-2 text-sm font-semibold text-blue-900 shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto gap-x-2"
                       >
-                        {name && price ? "Update" : "Create"}
+                        {name && pricePerSlot ? "Update" : "Create"}
                       </button>
                     </div>
-                  </form>
+                  </form> */}
                 </div>
               </Dialog.Panel>
             </Transition.Child>

@@ -4,11 +4,11 @@ import About from "../pages/about/About";
 import Checkout from "../pages/checkout/Checkout";
 import Contact from "../pages/contact/Contact";
 import Dashboard from "../pages/dashboard/Dashboard";
-import ProductManagement from "../pages/dashboard/management/ProductManagement";
+import RoomManagement from "../pages/dashboard/management/RoomManagement";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import Home from "../pages/home/Home";
-import Products from "../pages/products/Products";
-import SingleProduct from "../pages/singleProduct/SingleProduct";
+import Rooms from "../pages/rooms/Rooms";
+import SingleRoom from "../pages/singleRoom/SingleRoom";
 import Success from "../pages/success/Success";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
@@ -26,11 +26,11 @@ export const router: ReturnType<typeof createBrowserRouter> =
         },
         {
           path: "/rooms",
-          element: <Products />,
+          element: <Rooms />,
         },
         {
           path: "/rooms/:id",
-          element: <SingleProduct />,
+          element: <SingleRoom />,
         },
         {
           path: "/about",
@@ -57,7 +57,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
       children: [
         {
           index: true,
-          element: <ProductManagement />,
+          element: <RoomManagement />,
         },
       ],
     },

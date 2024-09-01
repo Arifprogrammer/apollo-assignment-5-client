@@ -11,6 +11,11 @@ import { setUser, TUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import Swal from "sweetalert2";
 
+const defaultValues = {
+  email: "",
+  password: "",
+};
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -67,7 +72,11 @@ const Login = () => {
       <Navbar />
       <section className="min-h-screen grid place-items-center">
         <div className="card w-80 md:w-[30rem] shrink-0 shadow-2xl text-black p-4 md:p-6 border-2 border-[#154f6e]">
-          <PHForm onSubmit={onSubmit} resolver={zodResolver(loginSchema)}>
+          <PHForm
+            onSubmit={onSubmit}
+            defaultValues={defaultValues}
+            resolver={zodResolver(loginSchema)}
+          >
             <PHInput type="email" name="email" label="Email"></PHInput>
             <PHInput type="password" name="password" label="Password"></PHInput>
             <button

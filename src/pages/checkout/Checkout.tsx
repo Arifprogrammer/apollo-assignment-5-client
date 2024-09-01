@@ -1,31 +1,24 @@
 import { useNavigate } from "react-router-dom";
-import {
-  getCartProducts,
-  getTotalPrice,
-  resetCart,
-} from "../../redux/features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { useUpdateProductsMutation } from "../../redux/features/products/productsApi";
+// import { useUpdateProductsMutation } from "../../redux/features/rooms/roomsApi";
 import { pick } from "radash";
 import { InputField } from "../../components/form/InputField";
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const totalPrice = useAppSelector(getTotalPrice);
-  const products = useAppSelector(getCartProducts);
-  const [updateProducts] = useUpdateProductsMutation();
+  // const [updateProducts] = useUpdateProductsMutation();
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { data } = await updateProducts(
-      products.map((product) => pick(product, ["_id", "orderQuantity"]))
-    ).unwrap();
+    // const { data } = await updateProducts(
+    //   products.map((product) => pick(product, ["_id", "orderQuantity"]))
+    // ).unwrap();
 
-    if (data?.modifiedCount) {
-      dispatch(resetCart());
-      navigate("/success");
-    }
+    // if (data?.modifiedCount) {
+    //   dispatch(resetCart());
+    //   navigate("/success");
+    // }
   };
 
   return (
@@ -75,12 +68,7 @@ const Checkout = () => {
         </select>
       </div>
 
-      <p>
-        Total Price:{" "}
-        <span className="text-lg text-rose-500 font-semibold">
-          ${totalPrice.toFixed(2)}
-        </span>
-      </p>
+      <p>Total Price: 0</p>
 
       <button type="submit" className="w-full btn bg-black text-white">
         Place Order
