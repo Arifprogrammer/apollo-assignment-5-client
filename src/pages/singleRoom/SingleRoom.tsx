@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetSingleRoomsQuery } from "../../redux/features/rooms/roomsApi";
 import { TRoom } from "../../types";
 
@@ -8,7 +8,7 @@ const SingleRoom = () => {
   const room = data?.data as TRoom;
 
   return (
-    <section className="min-h-screen  py-8 lg:py-20 px-4 md:px-8 lg:px-0 lg:w-1/2 lg:mx-auto">
+    <section className="min-h-screen py-8 lg:py-20 px-4 md:px-8 lg:px-0 lg:w-1/2 lg:mx-auto">
       {room && (
         <>
           <div className="grid grid-cols-1 gap-y-10 font-semibold">
@@ -19,19 +19,18 @@ const SingleRoom = () => {
                 className="rounded-2xl shadow-lg shadow-rose-600"
               />
             </div>
-            <div className="flex flex-col md:flex-row gap-x-6 gap-y-10">
-              {room.images.map(
-                (image, i) =>
-                  i !== 0 && (
+            {room.images.map(
+              (image, i) =>
+                i !== 0 && (
+                  <div key={i}>
                     <img
-                      key={i}
                       src={image}
                       alt=""
                       className="rounded-2xl shadow-lg md:shadow-md shadow-rose-600"
                     />
-                  )
-              )}
-            </div>
+                  </div>
+                )
+            )}
             <div className="divide-y-2 space-y-4 text-slate-700">
               <div>
                 <h2 className="card-title text-2xl text-black">
@@ -52,9 +51,11 @@ const SingleRoom = () => {
               </div>
               <div>
                 <p className="font-bold text-lg">Price: ${room.pricePerSlot}</p>
-                <button className="btn bg-[#D62828] border-none text-white w-fit font-bold mt-4">
-                  Book Now
-                </button>
+                <Link to={`/rooms/${room._id}/booking`}>
+                  <button className="btn bg-[#D62828] border-none text-white w-fit font-bold mt-4">
+                    Book Now
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

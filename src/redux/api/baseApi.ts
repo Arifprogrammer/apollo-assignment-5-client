@@ -50,6 +50,7 @@ const baseQueryWithToken: BaseQueryFn<
       title: `${result?.error?.data?.message}`,
     });
   }
+
   if (result?.error?.status === 403) {
     const Toast = Swal.mixin({
       toast: true,
@@ -67,6 +68,7 @@ const baseQueryWithToken: BaseQueryFn<
       title: `${result?.error?.data?.message}`,
     });
   }
+
   if (result?.error?.status === 401) {
     api.dispatch(logout());
   }
@@ -77,6 +79,6 @@ const baseQueryWithToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithToken,
-  tagTypes: ["rooms"],
+  tagTypes: ["rooms", "slots"],
   endpoints: () => ({}),
 });

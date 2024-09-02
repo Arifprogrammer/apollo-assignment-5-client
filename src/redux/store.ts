@@ -13,6 +13,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import roomSliceReducer from "./features/rooms/roomSlice";
+import slotSliceReducer from "./features/slots/slotSlice";
 
 const persistConfig = {
   key: "auth",
@@ -26,6 +27,7 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer,
     rooms: roomSliceReducer,
+    slots: slotSliceReducer,
   },
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares({

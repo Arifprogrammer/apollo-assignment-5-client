@@ -29,7 +29,7 @@ const Rooms = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   //* hooks
-  const { isLoading, data } = useGetRoomsQuery(query);
+  const { isLoading, data, error } = useGetRoomsQuery(query);
   const allRooms = data?.data as TRoom[];
   const totalPage = data?.meta.totalPage;
 
@@ -320,7 +320,8 @@ const Rooms = () => {
         </div>
       )}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 my-container">
-        {rooms &&
+        {!error &&
+          rooms &&
           rooms.map((room) => {
             return (
               <React.Fragment key={room._id}>
@@ -330,7 +331,7 @@ const Rooms = () => {
           })}
       </section>
       <div className="text-center mb-6 md:mb-8">
-        {allRooms?.length !== 0 &&
+        {!error &&
           list(1, totalPage).map((pageNumber) => (
             <Pagination
               key={pageNumber}
