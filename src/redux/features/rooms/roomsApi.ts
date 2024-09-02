@@ -3,6 +3,14 @@ import { baseApi } from "../../api/baseApi";
 
 const roomsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getSingleRooms: builder.query({
+      query: (roomId: string) => ({
+        url: `/rooms/${roomId}`,
+        method: "GET",
+      }),
+      providesTags: ["rooms"],
+    }),
+
     getRooms: builder.query({
       query: (query: TQueryType | undefined) => ({
         url: query
@@ -51,5 +59,6 @@ export const {
   useCreateRoomMutation,
   useDeleteRoomMutation,
   useGetRoomsQuery,
+  useGetSingleRoomsQuery,
   useUpdateRoomMutation,
 } = roomsApi;
