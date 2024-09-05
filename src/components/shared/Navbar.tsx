@@ -1,10 +1,16 @@
 import { TfiUser } from "react-icons/tfi";
 import { Link, NavLink } from "react-router-dom";
-/* import { getTotalOrderQuantity } from "../../redux/features/cart/cartSlice";
-import { useAppSelector } from "../../redux/hook"; */
+import { useAppDispatch } from "../../redux/hook";
+import { logout } from "../../redux/features/auth/authSlice";
+import { resetSlotsId } from "../../redux/features/slots/slotSlice";
 
 const Navbar = () => {
-  // const totalOrderQuantity = useAppSelector(getTotalOrderQuantity);
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(resetSlotsId());
+  };
 
   const listItem = (
     <>
@@ -97,7 +103,7 @@ const Navbar = () => {
             <li>
               <a>Dashboard</a>
             </li>
-            <li>
+            <li onClick={handleLogout}>
               <a>Logout</a>
             </li>
           </ul>

@@ -14,6 +14,7 @@ import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
 import Booking from "../pages/booking/Booking";
+import Payment from "../pages/Payment/Payment";
 
 export const router: ReturnType<typeof createBrowserRouter> =
   createBrowserRouter([
@@ -43,6 +44,14 @@ export const router: ReturnType<typeof createBrowserRouter> =
           element: (
             <ProtectedRoute role={undefined}>
               <Booking />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/rooms/payment",
+          element: (
+            <ProtectedRoute role={undefined}>
+              <Payment />
             </ProtectedRoute>
           ),
         },
