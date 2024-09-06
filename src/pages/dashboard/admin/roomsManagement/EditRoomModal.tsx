@@ -1,18 +1,18 @@
 /* eslint-disable no-prototype-builtins */
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { InputField } from "../../form/InputField";
+import { InputField } from "../../../../components/form/InputField";
 import { isEqual, omit } from "radash";
 import {
   useCreateRoomMutation,
   useUpdateRoomMutation,
-} from "../../../redux/features/rooms/roomsApi";
-import { TRoom } from "../../../types";
+} from "../../../../redux/features/rooms/roomsApi";
+import { TRoom } from "../../../../types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
-import { registrationSchema } from "../../../schemas/auth.schema";
-import PHForm from "../../form/PHForm";
-import PHInput from "../../form/PHInput";
+import { registrationSchema } from "../../../../schemas/auth.schema";
+import PHForm from "../../../../components/form/PHForm";
+import PHInput from "../../../../components/form/PHInput";
 import Swal from "sweetalert2";
 import { SubmitHandler, FieldValues } from "react-hook-form";
 import { register } from "swiper/element";

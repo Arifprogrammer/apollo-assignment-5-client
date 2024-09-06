@@ -12,6 +12,14 @@ const bookingsApi = baseApi.injectEndpoints({
       providesTags: ["bookings"],
     }),
 
+    getMyBookings: builder.query({
+      query: () => ({
+        url: `/bookings/my-bookings`,
+        method: "GET",
+      }),
+      providesTags: ["bookings"],
+    }),
+
     createPaymentIntent: builder.mutation({
       query: (price: number) => {
         return {
@@ -32,6 +40,7 @@ const bookingsApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["bookings"],
     }),
+
     updateBooking: builder.mutation({
       query: (room: TRoom) => {
         return {
@@ -60,5 +69,6 @@ export const {
   useCreatePaymentIntentMutation,
   useDeleteBookingMutation,
   useGetBookingsQuery,
+  useGetMyBookingsQuery,
   useUpdateBookingMutation,
 } = bookingsApi;

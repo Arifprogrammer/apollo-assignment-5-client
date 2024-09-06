@@ -1,11 +1,12 @@
 import { TfiUser } from "react-icons/tfi";
 import { Link, NavLink } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hook";
-import { logout } from "../../redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { logout, selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { resetSlotsId } from "../../redux/features/slots/slotSlice";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectCurrentUser);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -62,20 +63,23 @@ const Navbar = () => {
           Contact Us
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/login"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[#F77F00] font-semibold lg:border-b-4 border-b-[#F77F00]"
-              : "font-semibold lg:border-b-4 lg:border-b-white hover:border-b-[#F77F00] lg:text-white hover:text-[#F77F00] lg:transition lg:duration-200"
-          }
-        >
-          Login / Register
-        </NavLink>
-      </li>
-      <li className="hidden lg:block">
-        {/* <details className="dropdown">
+      {!user && (
+        <li>
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              isActive
+                ? "text-[#F77F00] font-semibold lg:border-b-4 border-b-[#F77F00]"
+                : "font-semibold lg:border-b-4 lg:border-b-white hover:border-b-[#F77F00] lg:text-white hover:text-[#F77F00] lg:transition lg:duration-200"
+            }
+          >
+            Login / Register
+          </NavLink>
+        </li>
+      )}
+      {user && (
+        <li className="hidden lg:block">
+          {/* <details className="dropdown">
           <summary>
             <img
               src="https://i.ibb.co/TBz7QSQ/rugby-min.png"
@@ -92,23 +96,32 @@ const Navbar = () => {
             </li>
           </ul>
         </details> */}
-        <div className="dropdown !p-0">
-          <div tabIndex={0} role="button">
-            <TfiUser className="size-9" />
+          <div className="dropdown !p-0">
+            <div tabIndex={0} role="button">
+              <TfiUser className="size-9" />
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-fit p-2 shadow right-0 top-12"
+            >
+              {user.role === "admin" ? (
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+              ) : (
+                <li>
+                  <Link to="/dashboard/my-bookings" className="text-nowrap">
+                    My bookings
+                  </Link>
+                </li>
+              )}
+              <li onClick={handleLogout}>
+                <a>Logout</a>
+              </li>
+            </ul>
           </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-fit p-2 shadow right-0 top-12"
-          >
-            <li>
-              <a>Dashboard</a>
-            </li>
-            <li onClick={handleLogout}>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
-      </li>
+        </li>
+      )}
     </>
   );
 

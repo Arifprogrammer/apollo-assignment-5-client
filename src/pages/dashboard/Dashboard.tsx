@@ -37,7 +37,7 @@ const Dashboard = () => {
                 to="/dashboard"
                 className="text-nowrap font-semibold border-b-4 border-b-white hover:border-b-[#D62828] text-white hover:text-[#D62828] lg:transition lg:duration-200 text-sm lg:text-lg"
               >
-                Product Management
+                Bookings Management
               </Link>
             </li>
           </ul>

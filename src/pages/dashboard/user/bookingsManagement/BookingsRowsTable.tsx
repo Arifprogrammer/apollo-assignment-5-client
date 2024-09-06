@@ -1,0 +1,30 @@
+import { TBooking, TRoom, TSlot } from "../../../../types";
+
+interface RoomsRowsTableProps {
+  booking: TBooking;
+  index: number;
+}
+
+const BookingsRowsTable = ({ booking, index }: RoomsRowsTableProps) => {
+  const { room, slots, isConfirmed, date } = booking;
+
+  return (
+    <>
+      <tr className="font-bold">
+        <th>{index + 1}</th>
+        <td>{(room as TRoom).name}</td>
+        <td>{date}</td>
+        <td>
+          {(slots as TSlot[]).map((slot) => (
+            <span key={slot._id}>
+              {slot.startTime} - {slot.endTime},{" "}
+            </span>
+          ))}
+        </td>
+        <td>{isConfirmed}</td>
+      </tr>
+    </>
+  );
+};
+
+export default BookingsRowsTable;

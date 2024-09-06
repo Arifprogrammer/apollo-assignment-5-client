@@ -4,7 +4,7 @@ import About from "../pages/about/About";
 import Checkout from "../pages/checkout/Checkout";
 import Contact from "../pages/contact/Contact";
 import Dashboard from "../pages/dashboard/Dashboard";
-import RoomManagement from "../pages/dashboard/management/RoomManagement";
+import RoomManagement from "../pages/dashboard/admin/RoomManagement";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import Home from "../pages/home/Home";
 import Rooms from "../pages/rooms/Rooms";
@@ -15,6 +15,7 @@ import Login from "../pages/auth/Login";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
 import Booking from "../pages/booking/Booking";
 import Payment from "../pages/Payment/Payment";
+import BookingsManagement from "../pages/dashboard/user/bookingsManagement/BookingsManagement";
 
 export const router: ReturnType<typeof createBrowserRouter> =
   createBrowserRouter([
@@ -78,9 +79,19 @@ export const router: ReturnType<typeof createBrowserRouter> =
       element: <Dashboard />,
       errorElement: <ErrorPage />,
       children: [
+        //* admin routes
         {
           index: true,
           element: <RoomManagement />,
+        },
+        //* user routes
+        {
+          path: "/dashboard/my-bookings",
+          element: (
+            <ProtectedRoute role="user">
+              <BookingsManagement />
+            </ProtectedRoute>
+          ),
         },
       ],
     },

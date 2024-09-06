@@ -16,6 +16,7 @@ import PHForm from "../../components/form/PHForm";
 import PHInput from "../../components/form/PHInput";
 import { SubmitHandler, FieldValues } from "react-hook-form";
 import Modal from "../../components/ui/modal/Modal";
+import { useNavigate } from "react-router-dom";
 
 type CheckoutFormProps = {
   room: TRoom;
@@ -32,7 +33,7 @@ const CheckoutForm = ({ room, date }: CheckoutFormProps) => {
   //* third-party hooks
   const stripe = useStripe();
   const elements = useElements();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   //* redux hooks
   const user = useAppSelector(selectCurrentUser);
   const selectedSlots = useAppSelector(getAllSelectedSlots);
@@ -52,6 +53,10 @@ const CheckoutForm = ({ room, date }: CheckoutFormProps) => {
   useEffect(() => {
     if (booking) setOpen(true);
   }, [booking]);
+
+  useEffect(() => {
+    if (booking && !open) navigate("/dashboard/my-bookings");
+  }, [booking, open, navigate]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // Block native form submission.

@@ -1,4 +1,4 @@
-import { TRoom } from "../../../types";
+import { TRoom } from "../../../../types";
 
 interface RoomsRowsTableProps {
   room: TRoom;

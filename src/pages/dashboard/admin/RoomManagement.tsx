@@ -3,12 +3,12 @@ import {
   useDeleteRoomMutation,
 } from "../../../redux/features/rooms/roomsApi";
 import { getAllRooms } from "../../../redux/features/rooms/roomSlice";
-import RoomsRowsTable from "../../../components/ui/roomsManagement/RoomsRowsTable";
+import RoomsRowsTable from "./roomsManagement/RoomsRowsTable";
 import { useAppSelector } from "../../../redux/hook";
 import { useEffect, useState } from "react";
 import { TRoom } from "../../../types";
 import Swal from "sweetalert2";
-import EditRoomModal from "../../../components/ui/roomsManagement/EditRoomModal";
+import EditRoomModal from "./roomsManagement/EditRoomModal";
 
 const InitialProduct = {
   _id: "",
