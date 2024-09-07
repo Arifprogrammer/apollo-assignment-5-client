@@ -4,7 +4,7 @@ import About from "../pages/about/About";
 import Checkout from "../pages/checkout/Checkout";
 import Contact from "../pages/contact/Contact";
 import Dashboard from "../pages/dashboard/Dashboard";
-import RoomManagement from "../pages/dashboard/admin/RoomManagement";
+import RoomManagement from "../pages/dashboard/admin/roomsManagement/RoomManagement";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import Home from "../pages/home/Home";
 import Rooms from "../pages/rooms/Rooms";
@@ -76,12 +76,16 @@ export const router: ReturnType<typeof createBrowserRouter> =
     },
     {
       path: "/dashboard",
-      element: <Dashboard />,
+      element: (
+        <ProtectedRoute role={undefined}>
+          <Dashboard />
+        </ProtectedRoute>
+      ),
       errorElement: <ErrorPage />,
       children: [
         //* admin routes
         {
-          index: true,
+          path: "/dashboard/rooms",
           element: <RoomManagement />,
         },
         //* user routes

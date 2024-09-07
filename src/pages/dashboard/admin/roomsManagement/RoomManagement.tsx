@@ -1,17 +1,16 @@
 import {
   useGetRoomsQuery,
   useDeleteRoomMutation,
-} from "../../../redux/features/rooms/roomsApi";
-import { getAllRooms } from "../../../redux/features/rooms/roomSlice";
-import RoomsRowsTable from "./roomsManagement/RoomsRowsTable";
-import { useAppSelector } from "../../../redux/hook";
+} from "../../../../redux/features/rooms/roomsApi";
+import RoomsRowsTable from "./RoomsRowsTable";
 import { useEffect, useState } from "react";
-import { TRoom } from "../../../types";
+import { TQueryType, TRoom } from "../../../../types";
 import Swal from "sweetalert2";
-import EditRoomModal from "./roomsManagement/EditRoomModal";
+import EditRoomModal from "./EditRoomModal";
+import { list } from "radash";
+import Pagination from "../../../../components/ui/pagination/Pagination";
 
 const InitialProduct = {
-  _id: "",
   name: "",
   images: [],
   roomNo: 0,
@@ -22,12 +21,34 @@ const InitialProduct = {
 };
 
 const RoomManagement = () => {
+  //* react hooks
   const [open, setOpen] = useState(false);
   const [specificRoom, setSpecificRoom] = useState<TRoom | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [query, setQuery] = useState<TQueryType | undefined>(undefined);
 
-  const { isLoading, refetch } = useGetRoomsQuery(undefined);
-  const { rooms } = useAppSelector(getAllRooms);
+  //* redux hooks
+  const { isLoading, data, error } = useGetRoomsQuery(query);
   const [deleteProduct] = useDeleteRoomMutation();
+
+  //* variables
+  const allRooms = data?.data as TRoom[];
+  const totalPage = data?.meta.totalPage;
+
+  //* effects
+  useEffect(() => {
+    const query: TQueryType = {
+      limit: 6,
+      page: page,
+      searchTerm: "",
+      sort: "",
+    };
+
+    setQuery((prev) => ({
+      ...prev,
+      ...query,
+    }));
+  }, [page]);
 
   const handleDeleteRoom = (id: string) => {
     Swal.fire({
@@ -58,11 +79,6 @@ const RoomManagement = () => {
     setOpen(true);
   };
 
-  //* effects
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
-
   return (
     <>
       <button
@@ -77,16 +93,17 @@ const RoomManagement = () => {
           <thead>
             <tr className="text-slate-600 text-base">
               <th></th>
-              <th>Image</th>
-              <th>Product Name</th>
-              <th>Brand</th>
-              <th>Price</th>
+              <th>Room Name</th>
+              <th>Room No</th>
+              <th>Floor No</th>
+              <th>Capacity</th>
+              <th>Price Per Slot</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {rooms.length &&
-              rooms?.map((room, index) => (
+            {allRooms?.length &&
+              allRooms.map((room, index) => (
                 <RoomsRowsTable
                   key={room._id}
                   room={room}
@@ -102,7 +119,7 @@ const RoomManagement = () => {
             <span className="loading loading-bars loading-md"></span>
           </div>
         )}
-        {!rooms?.length && (
+        {!allRooms?.length && (
           <>
             <p className="mt-10 text-rose-600 font-bold text-lg text-center">
               You have no room !!!
@@ -118,6 +135,18 @@ const RoomManagement = () => {
           specificRoom={specificRoom}
         />
       )}
+
+      <div className="text-center mb-6 md:mb-8">
+        {!error &&
+          list(1, totalPage).map((pageNumber) => (
+            <Pagination
+              key={pageNumber}
+              index={pageNumber}
+              page={page}
+              setPage={setPage}
+            />
+          ))}
+      </div>
     </>
   );
 };

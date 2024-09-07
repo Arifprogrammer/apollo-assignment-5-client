@@ -13,23 +13,16 @@ const RoomsRowsTable = ({
   handleDeleteRoom,
   handleEditRoom,
 }: RoomsRowsTableProps) => {
-  const { _id, name, images, pricePerSlot } = room;
+  const { _id, name, pricePerSlot, capacity, roomNo, floorNo } = room;
 
   return (
     <>
       <tr className="font-bold">
         <th>{index + 1}</th>
-        <td>
-          <span className="flex items-center space-x-3">
-            <span className="avatar">
-              <span className="mask mask-squircle w-12 h-12">
-                <img src={images[0]} alt="class picture" />
-              </span>
-            </span>
-          </span>
-        </td>
         <td>{name}</td>
-        {/* <td>{brand}</td> */}
+        <td>{roomNo}</td>
+        <td>{floorNo}</td>
+        <td>{capacity}</td>
         <td>$ {pricePerSlot}</td>
         <td>
           <button
@@ -40,7 +33,7 @@ const RoomsRowsTable = ({
           </button>
           <button
             className="px-3 border-2 border-rose-600 text-rose-600 hover:text-white hover:bg-rose-600 rounded-3xl w-20"
-            onClick={() => handleDeleteRoom(_id)}
+            onClick={() => handleDeleteRoom(_id!)}
           >
             Delete
           </button>

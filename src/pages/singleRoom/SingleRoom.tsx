@@ -12,16 +12,19 @@ const SingleRoom = () => {
       {room && (
         <>
           <div className="grid grid-cols-1 gap-y-10 font-semibold">
-            <div>
-              <img
-                src={room.images[0]}
-                alt=""
-                className="rounded-2xl shadow-lg shadow-rose-600"
-              />
-            </div>
+            {room.images[0] && (
+              <div>
+                <img
+                  src={room.images[0]}
+                  alt=""
+                  className="rounded-2xl shadow-lg shadow-rose-600"
+                />
+              </div>
+            )}
             {room.images.map(
               (image, i) =>
-                i !== 0 && (
+                i !== 0 &&
+                image && (
                   <div key={i}>
                     <img
                       src={image}
@@ -45,9 +48,9 @@ const SingleRoom = () => {
                 <p className="text-slate-600">Room No: {room.roomNo}</p>
                 <p className="text-slate-600">Floor No: {room.floorNo}</p>
                 Amenities:{" "}
-                {room.amenities.map((amenity) => (
-                  <span key={amenity}>{amenity}, </span>
-                ))}
+                {room.amenities.map(
+                  (amenity) => amenity && <span key={amenity}>{amenity}, </span>
+                )}
               </div>
               <div>
                 <p className="font-bold text-lg">Price: ${room.pricePerSlot}</p>

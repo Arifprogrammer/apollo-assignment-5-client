@@ -16,9 +16,9 @@ const BookingsRowsTable = ({ booking, index }: RoomsRowsTableProps) => {
         <td>{date}</td>
         <td>
           {(slots as TSlot[]).map((slot) => (
-            <span key={slot._id}>
-              {slot.startTime} - {slot.endTime},{" "}
-            </span>
+            <p key={slot._id}>
+              {slot.startTime} - {slot.endTime}
+            </p>
           ))}
         </td>
         <td>{isConfirmed}</td>

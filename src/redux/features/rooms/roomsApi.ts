@@ -35,7 +35,7 @@ const roomsApi = baseApi.injectEndpoints({
     updateRoom: builder.mutation({
       query: (room: TRoom) => {
         return {
-          url: `/products/${room._id}`,
+          url: `/rooms/${room._id}`,
           method: "PUT",
           body: room,
         };

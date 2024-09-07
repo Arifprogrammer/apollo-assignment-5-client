@@ -1,7 +1,41 @@
 import { FaAnglesRight } from "react-icons/fa6";
 import { Link, Outlet } from "react-router-dom";
+import { useAppSelector } from "../../redux/hook";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+
+const userMenus = [
+  {
+    path: "/",
+    name: "Home",
+  },
+  {
+    path: "/dashboard/my-bookings",
+    name: "Bookings Management",
+  },
+];
+
+const adminMenus = [
+  {
+    path: "/",
+    name: "Home",
+  },
+  {
+    path: "/dashboard/rooms",
+    name: "Rooms Management",
+  },
+  {
+    path: "/dashboard/slots",
+    name: "Slots Management",
+  },
+  {
+    path: "/dashboard/users",
+    name: "Users Management",
+  },
+];
 
 const Dashboard = () => {
+  const user = useAppSelector(selectCurrentUser);
+
   return (
     <>
       <div className="drawer lg:drawer-open">
@@ -10,7 +44,7 @@ const Dashboard = () => {
           {/* Page content here */}
           <label
             htmlFor="my-drawer-2"
-            className="btn border-[#D62828] text-[#D62828] bg-white absolute top-2 left-2 drawer-button lg:hidden"
+            className="btn border-[#F77F00] text-[#F77F00] bg-white absolute top-2 left-2 drawer-button lg:hidden"
           >
             <FaAnglesRight />
           </label>
@@ -24,22 +58,27 @@ const Dashboard = () => {
           ></label>
           <ul className="menu px-4 min-h-full bg-slate-900 max-w-48 md:!max-w-64 w-full text-base-content space-y-6 flex flex-col justify-center">
             {/* Sidebar content here */}
-            <li>
-              <Link
-                to="/"
-                className="font-semibold border-b-4 border-b-white hover:border-b-[#D62828] text-white hover:text-[#D62828] lg:transition lg:duration-200 text-sm lg:text-lg"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/dashboard"
-                className="text-nowrap font-semibold border-b-4 border-b-white hover:border-b-[#D62828] text-white hover:text-[#D62828] lg:transition lg:duration-200 text-sm lg:text-lg"
-              >
-                Bookings Management
-              </Link>
-            </li>
+            {user?.role === "user"
+              ? userMenus.map((userMenu) => (
+                  <li key={userMenu.name}>
+                    <Link
+                      to={userMenu.path}
+                      className="font-semibold border-b-4 border-b-white hover:border-b-[#F77F00] text-white hover:text-[#F77F00] lg:transition lg:duration-200 text-sm lg:text-lg"
+                    >
+                      {userMenu.name}
+                    </Link>
+                  </li>
+                ))
+              : adminMenus.map((adminMenu) => (
+                  <li key={adminMenu.name}>
+                    <Link
+                      to={adminMenu.path}
+                      className="font-semibold border-b-4 border-b-white hover:border-b-[#F77F00] text-white hover:text-[#F77F00] lg:transition lg:duration-200 text-sm lg:text-lg"
+                    >
+                      {adminMenu.name}
+                    </Link>
+                  </li>
+                ))}
           </ul>
         </div>
       </div>

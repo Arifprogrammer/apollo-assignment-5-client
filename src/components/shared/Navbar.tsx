@@ -4,6 +4,25 @@ import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { logout, selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { resetSlotsId } from "../../redux/features/slots/slotSlice";
 
+const menus = [
+  {
+    path: "/",
+    name: "Home",
+  },
+  {
+    path: "/rooms",
+    name: "Meeting Rooms",
+  },
+  {
+    path: "/about",
+    name: "About Us",
+  },
+  {
+    path: "/contact",
+    name: "Contact Us",
+  },
+];
+
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectCurrentUser);
@@ -15,54 +34,20 @@ const Navbar = () => {
 
   const listItem = (
     <>
-      <li>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[#F77F00] font-semibold lg:border-b-4 border-b-[#F77F00]"
-              : "font-semibold lg:border-b-4 lg:border-b-white hover:border-b-[#F77F00] lg:text-white hover:text-[#F77F00] lg:transition lg:duration-200"
-          }
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/rooms"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[#F77F00] font-semibold lg:border-b-4 border-b-[#F77F00]"
-              : "font-semibold lg:border-b-4 lg:border-b-white hover:border-b-[#F77F00] lg:text-white hover:text-[#F77F00] lg:transition lg:duration-200"
-          }
-        >
-          Meeting Rooms
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/about"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[#F77F00] font-semibold lg:border-b-4 border-b-[#F77F00]"
-              : "font-semibold lg:border-b-4 lg:border-b-white hover:border-b-[#F77F00] lg:text-white hover:text-[#F77F00] lg:transition lg:duration-200"
-          }
-        >
-          About Us
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[#F77F00] font-semibold lg:border-b-4 border-b-[#F77F00]"
-              : "font-semibold lg:border-b-4 lg:border-b-white hover:border-b-[#F77F00] lg:text-white hover:text-[#F77F00] lg:transition lg:duration-200"
-          }
-        >
-          Contact Us
-        </NavLink>
-      </li>
+      {menus.map((menu) => (
+        <li key={menu.name}>
+          <NavLink
+            to={menu.path}
+            className={({ isActive }) =>
+              isActive
+                ? "text-[#F77F00] font-semibold lg:border-b-4 border-b-[#F77F00]"
+                : "font-semibold lg:border-b-4 lg:border-b-white hover:border-b-[#F77F00] lg:text-white hover:text-[#F77F00] lg:transition lg:duration-200"
+            }
+          >
+            {menu.name}
+          </NavLink>
+        </li>
+      ))}
       {!user && (
         <li>
           <NavLink
@@ -106,7 +91,7 @@ const Navbar = () => {
             >
               {user.role === "admin" ? (
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/dashboard/rooms">Dashboard</Link>
                 </li>
               ) : (
                 <li>

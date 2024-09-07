@@ -1,21 +1,17 @@
 /* eslint-disable no-prototype-builtins */
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { InputField } from "../../../../components/form/InputField";
-import { isEqual, omit } from "radash";
 import {
   useCreateRoomMutation,
   useUpdateRoomMutation,
 } from "../../../../redux/features/rooms/roomsApi";
 import { TRoom } from "../../../../types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
-import { registrationSchema } from "../../../../schemas/auth.schema";
 import PHForm from "../../../../components/form/PHForm";
 import PHInput from "../../../../components/form/PHInput";
 import Swal from "sweetalert2";
 import { SubmitHandler, FieldValues } from "react-hook-form";
-import { register } from "swiper/element";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import { isArray, trim } from "radash";
 
 interface EditRoomModalProps {
   open: boolean;
@@ -35,7 +31,41 @@ export default function EditRoomModal({
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const res = await updateRoom(data as TRoom).unwrap();
+      if (!isArray(data.images)) {
+        data.images = data.images
+          .split(",")
+          .map((img: string) => trim(img))
+          .filter((img: string) => !!img);
+      } else {
+        data.images = data.images
+          .map((img: string) => trim(img))
+          .filter((img: string) => !!img);
+      }
+
+      if (!isArray(data.amenities)) {
+        data.amenities = data.amenities
+          .split(",")
+          .map((amenity: string) => trim(amenity))
+          .filter((amenity: string) => !!amenity);
+      } else {
+        data.amenities = data.amenities
+          .map((amenity: string) => trim(amenity))
+          .filter((amenity: string) => !!amenity);
+      }
+
+      const mapData: TRoom = {
+        ...data,
+        images: data.images,
+        amenities: data.amenities,
+        capacity: Number(data.capacity),
+        floorNo: Number(data.floorNo),
+        roomNo: Number(data.roomNo),
+        pricePerSlot: Number(data.pricePerSlot),
+        name: data.name,
+      };
+      const res = data._id
+        ? await updateRoom(mapData as TRoom).unwrap()
+        : await createRoom(mapData as TRoom).unwrap();
 
       const Toast = Swal.mixin({
         toast: true,
@@ -52,6 +82,8 @@ export default function EditRoomModal({
         icon: "success",
         title: `${res.message}`,
       });
+
+      setOpen(false);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const Toast = Swal.mixin({
@@ -67,7 +99,7 @@ export default function EditRoomModal({
       });
       Toast.fire({
         icon: "error",
-        title: `${err.data.errorMessages[0].message}`,
+        title: `${err?.data?.errorMessages[0]?.message}`,
       });
     }
   };
@@ -139,121 +171,43 @@ export default function EditRoomModal({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-black text-left shadow-xl transition-all sm:my-8 w-11/12 lg:w-[800px]">
-                <div className="md:px-4 md:pb-4 pt-5 sm:p-6 sm:pb-4">
-                  <div className="card-body p-5 md:p-8 gap-x-6 md:grid md:grid-cols-2 shadow-2xl text-black border-2 border-[#154f6e]">
-                    <PHForm
-                      onSubmit={onSubmit}
-                      defaultValues={specificRoom}
-                      // resolver={zodResolver(registrationSchema)}
-                    >
-                      <PHInput type="text" name="name" label="Name"></PHInput>
-                      <PHInput
-                        type="number"
-                        name="capacity"
-                        label="Capacity"
-                      ></PHInput>
-                      <PHInput
-                        type="number"
-                        name="floorNo"
-                        label="Floor No"
-                      ></PHInput>
-                      <PHInput
-                        type="number"
-                        name="roomNo"
-                        label="Room No"
-                      ></PHInput>
-                      <PHInput
-                        type="number"
-                        name="pricePerSlot"
-                        label="Price"
-                      ></PHInput>
-                      <PHInput
-                        type="text"
-                        name="amenities"
-                        label="Amenities"
-                      ></PHInput>
-                      <div className="flex gap-2 mt-2 ml-auto">
-                        <button
-                          type="button"
-                          onClick={() => setOpen(false)}
-                          className="inline-flex justify-center rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-blue-900 shadow-sm hover:bg-gray-400 hover:text-black sm:ml-3 sm:w-auto gap-x-2"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="submit"
-                          className="inline-flex justify-center rounded-md bg-lime-400 px-3 py-2 text-sm font-semibold text-blue-900 shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto gap-x-2"
-                        >
-                          {name && pricePerSlot ? "Update" : "Create"}
-                        </button>
-                      </div>
-                    </PHForm>
-                  </div>
-                  {/* <form
-                    className="card-body p-5 md:p-8 gap-x-6 md:grid md:grid-cols-2"
-                    onSubmit={onSubmit}
-                  >
-                    <InputField
-                      label="Name"
-                      name="name"
-                      id="name"
-                      type="text"
-                      defaultValue={name}
-                      required
-                    />
-                    <InputField
-                      label="Image Url"
-                      id="url"
-                      name="image"
-                      type="url"
-                      defaultValue={image}
-                      required
-                    />
-                    <InputField
-                      label="Brand"
-                      id="brand"
-                      name="brand"
-                      type="text"
-                      defaultValue={brand}
-                      required
-                    />
-                    <InputField
+                <div className="card-body p-5 md:p-8 gap-x-6 shadow-2xl text-black">
+                  <PHForm onSubmit={onSubmit} defaultValues={specificRoom}>
+                    <PHInput type="text" name="images" label="Images"></PHInput>
+                    <small className="flex items-center gap-x-2 text-[#a14916]">
+                      <IoMdInformationCircleOutline />{" "}
+                      <span>Upload multiple image links by adding comma</span>
+                    </small>
+                    <PHInput type="text" name="name" label="Name"></PHInput>
+                    <PHInput
+                      type="number"
+                      name="capacity"
+                      label="Capacity"
+                    ></PHInput>
+                    <PHInput
+                      type="number"
+                      name="floorNo"
+                      label="Floor No"
+                    ></PHInput>
+                    <PHInput
+                      type="number"
+                      name="roomNo"
+                      label="Room No"
+                    ></PHInput>
+                    <PHInput
+                      type="number"
+                      name="pricePerSlot"
                       label="Price"
-                      id="price"
-                      name="price"
-                      defaultValue={price}
-                      type="number"
-                      required
-                    />
-                    <InputField
-                      label="Rating"
-                      id="rating"
-                      name="rating"
-                      defaultValue={rating}
-                      type="number"
-                      required
-                    />
-                    <InputField
-                      label="Quantity"
-                      id="quantity"
-                      name="availableQuantity"
-                      defaultValue={availableQuantity}
-                      type="number"
-                      required
-                    />
-                    <div className="form-control col-span-2">
-                      <label className="label">
-                        <span className="label-text text-black font-semibold text-base">
-                          Description*
-                        </span>
-                      </label>
-                      <textarea
-                        name="description"
-                        className="textarea textarea-bordered text-black font-semibold h-32 rounded-md bg-white"
-                        defaultValue={description ? description : ""}
-                      ></textarea>
-                    </div>
-                    <div className="hidden lg:block"></div>
+                    ></PHInput>
+                    <PHInput
+                      type="text"
+                      name="amenities"
+                      label="Amenities"
+                    ></PHInput>
+                    <small className="flex items-center gap-x-2 text-[#a14916]">
+                      <IoMdInformationCircleOutline />{" "}
+                      <span>separate amenities by adding comma</span>
+                    </small>
                     <div className="flex gap-2 mt-2 ml-auto">
                       <button
                         type="button"
@@ -269,7 +223,7 @@ export default function EditRoomModal({
                         {name && pricePerSlot ? "Update" : "Create"}
                       </button>
                     </div>
-                  </form> */}
+                  </PHForm>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
