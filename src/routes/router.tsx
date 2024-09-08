@@ -16,6 +16,7 @@ import ProtectedRoute from "../components/layout/ProtectedRoute";
 import Booking from "../pages/booking/Booking";
 import Payment from "../pages/Payment/Payment";
 import BookingsManagement from "../pages/dashboard/user/bookingsManagement/BookingsManagement";
+import SlotManagement from "../pages/dashboard/admin/slotsManagement/SlotManagement";
 
 export const router: ReturnType<typeof createBrowserRouter> =
   createBrowserRouter([
@@ -87,6 +88,14 @@ export const router: ReturnType<typeof createBrowserRouter> =
         {
           path: "/dashboard/rooms",
           element: <RoomManagement />,
+        },
+        {
+          path: "/dashboard/slots",
+          element: (
+            <ProtectedRoute role="admin">
+              <SlotManagement />
+            </ProtectedRoute>
+          ),
         },
         //* user routes
         {

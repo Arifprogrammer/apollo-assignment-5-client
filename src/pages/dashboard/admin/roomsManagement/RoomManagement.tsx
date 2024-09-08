@@ -10,7 +10,7 @@ import EditRoomModal from "./EditRoomModal";
 import { list } from "radash";
 import Pagination from "../../../../components/ui/pagination/Pagination";
 
-const InitialProduct = {
+const InitialRoom = {
   name: "",
   images: [],
   roomNo: 0,
@@ -29,7 +29,7 @@ const RoomManagement = () => {
 
   //* redux hooks
   const { isLoading, data, error } = useGetRoomsQuery(query);
-  const [deleteProduct] = useDeleteRoomMutation();
+  const [deleteRoom] = useDeleteRoomMutation();
 
   //* variables
   const allRooms = data?.data as TRoom[];
@@ -61,7 +61,7 @@ const RoomManagement = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { success } = await deleteProduct(id).unwrap();
+        const { success } = await deleteRoom(id).unwrap();
         if (success) {
           Swal.fire("Deleted!", "Deleted", "success");
         }
@@ -69,8 +69,8 @@ const RoomManagement = () => {
     });
   };
 
-  const handleCreateProduct = () => {
-    setSpecificRoom(InitialProduct);
+  const handleCreateRoom = () => {
+    setSpecificRoom(InitialRoom);
     setOpen(true);
   };
 
@@ -83,11 +83,11 @@ const RoomManagement = () => {
     <>
       <button
         className="w-fit btn bg-black text-white mt-4 md:mt-0 mb-2"
-        onClick={() => handleCreateProduct()}
+        onClick={() => handleCreateRoom()}
       >
         Add Room
       </button>
-      <div className="overflow-x-auto min-h-screen text-slate-800">
+      <div className="overflow-x-auto min-h-fit text-slate-800 mb-4">
         <table className="table">
           {/* head */}
           <thead>

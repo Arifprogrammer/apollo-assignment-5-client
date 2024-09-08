@@ -42,13 +42,13 @@ const Booking = () => {
     );
 
     if (isExist) {
-      dispatch(deleteSlot(slot._id));
+      dispatch(deleteSlot(slot._id!));
       return;
     }
 
     dispatch(
       setSelectedSlots({
-        id: slot._id,
+        id: slot._id!,
         time: `${slot.startTime}-${slot.endTime}`,
       })
     );
@@ -74,7 +74,7 @@ const Booking = () => {
                 <label className="cursor-pointer label">
                   <input
                     type="checkbox"
-                    defaultChecked={selectedSlotIds.includes(slot._id)}
+                    defaultChecked={selectedSlotIds.includes(slot._id!)}
                     onChange={() => handleSelectedSlots(slot)}
                     className="checkbox checkbox-warning"
                   />

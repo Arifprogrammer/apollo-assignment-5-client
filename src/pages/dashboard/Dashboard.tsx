@@ -63,7 +63,7 @@ const Dashboard = () => {
                   <li key={userMenu.name}>
                     <Link
                       to={userMenu.path}
-                      className="font-semibold border-b-4 border-b-white hover:border-b-[#F77F00] text-white hover:text-[#F77F00] lg:transition lg:duration-200 text-sm lg:text-lg"
+                      className="font-semibold border-b-4 border-b-white hover:border-b-[#F77F00] text-white hover:text-[#F77F00] lg:transition lg:duration-200 text-sm lg:text-lg text-nowrap"
                     >
                       {userMenu.name}
                     </Link>
@@ -73,7 +73,7 @@ const Dashboard = () => {
                   <li key={adminMenu.name}>
                     <Link
                       to={adminMenu.path}
-                      className="font-semibold border-b-4 border-b-white hover:border-b-[#F77F00] text-white hover:text-[#F77F00] lg:transition lg:duration-200 text-sm lg:text-lg"
+                      className="font-semibold border-b-4 border-b-white hover:border-b-[#F77F00] text-white hover:text-[#F77F00] lg:transition lg:duration-200 text-sm lg:text-lg text-nowrap"
                     >
                       {adminMenu.name}
                     </Link>

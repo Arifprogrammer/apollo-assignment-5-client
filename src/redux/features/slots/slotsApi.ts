@@ -1,10 +1,10 @@
-import { TRoom } from "../../../types";
+import { TSlot } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const slotsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getSlots: builder.query({
-      query: (params: { date: string; roomId: string }) => ({
+      query: (params?: { date: string; roomId: string }) => ({
         url: `/slots/availability`,
         method: "GET",
         params: params,
@@ -13,22 +13,22 @@ const slotsApi = baseApi.injectEndpoints({
     }),
 
     createSlot: builder.mutation({
-      query: (room: TRoom) => {
+      query: (slot: TSlot) => {
         return {
-          url: "/rooms",
+          url: "/slots",
           method: "POST",
-          body: room,
+          body: slot,
         };
       },
       invalidatesTags: ["slots"],
     }),
 
     updateSlot: builder.mutation({
-      query: (room: TRoom) => {
+      query: (slot: TSlot) => {
         return {
-          url: `/products/${room._id}`,
-          method: "PUT",
-          body: room,
+          url: `/slots/update/${slot._id}`,
+          method: "PATCH",
+          body: slot,
         };
       },
       invalidatesTags: ["slots"],
@@ -37,7 +37,7 @@ const slotsApi = baseApi.injectEndpoints({
     deleteSlot: builder.mutation({
       query: (id: string) => {
         return {
-          url: `/rooms/${id}`,
+          url: `/slots/${id}`,
           method: "DELETE",
         };
       },

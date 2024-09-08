@@ -1,71 +1,45 @@
 /* eslint-disable no-prototype-builtins */
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  useCreateRoomMutation,
-  useUpdateRoomMutation,
-} from "../../../../redux/features/rooms/roomsApi";
-import { TRoom } from "../../../../types";
+import { TRoom, TSlot } from "../../../../types";
 import PHForm from "../../../../components/form/PHForm";
 import PHInput from "../../../../components/form/PHInput";
 import Swal from "sweetalert2";
 import { SubmitHandler, FieldValues } from "react-hook-form";
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import { isArray, trim } from "radash";
+import {
+  useCreateSlotMutation,
+  useUpdateSlotMutation,
+} from "../../../../redux/features/slots/slotsApi";
+import { shake } from "radash";
 
-interface EditRoomModalProps {
+interface EditSlotModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  specificRoom: TRoom;
+  specificSlot: TSlot;
 }
 
-export default function EditRoomModal({
+export default function EditSlotModal({
   open,
   setOpen,
-  specificRoom,
-}: EditRoomModalProps) {
-  const [updateRoom] = useUpdateRoomMutation();
-  const [createRoom] = useCreateRoomMutation();
+  specificSlot,
+}: EditSlotModalProps) {
+  const [updateSlot] = useUpdateSlotMutation();
+  const [createSlot] = useCreateSlotMutation();
 
-  const { name, pricePerSlot } = specificRoom;
+  const { _id } = specificSlot;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      if (!isArray(data.images)) {
-        data.images = data.images
-          .split(",")
-          .map((img: string) => trim(img))
-          .filter((img: string) => !!img);
-      } else {
-        data.images = data.images
-          .map((img: string) => trim(img))
-          .filter((img: string) => !!img);
-      }
-
-      if (!isArray(data.amenities)) {
-        data.amenities = data.amenities
-          .split(",")
-          .map((amenity: string) => trim(amenity))
-          .filter((amenity: string) => !!amenity);
-      } else {
-        data.amenities = data.amenities
-          .map((amenity: string) => trim(amenity))
-          .filter((amenity: string) => !!amenity);
-      }
-
-      const mapData: TRoom = {
-        ...data,
-        images: data.images,
-        amenities: data.amenities,
-        capacity: Number(data.capacity),
-        floorNo: Number(data.floorNo),
-        roomNo: Number(data.roomNo),
-        pricePerSlot: Number(data.pricePerSlot),
-        name: data.name,
+      const mapData: TSlot = {
+        _id: specificSlot._id,
+        date: specificSlot.date,
+        room: (specificSlot.room as TRoom)._id!,
+        startTime: data.startTime,
+        endTime: data.endTime,
       };
       const res = data._id
-        ? await updateRoom(mapData as TRoom).unwrap()
-        : await createRoom(mapData as TRoom).unwrap();
+        ? await updateSlot(mapData as TSlot).unwrap()
+        : await createSlot(shake(mapData) as TSlot).unwrap();
 
       const Toast = Swal.mixin({
         toast: true,
@@ -132,42 +106,9 @@ export default function EditRoomModal({
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-black text-left shadow-xl transition-all sm:my-8 w-11/12 lg:w-[800px]">
                 <div className="card-body p-5 md:p-8 gap-x-6 shadow-2xl text-black">
-                  <PHForm onSubmit={onSubmit} defaultValues={specificRoom}>
-                    <PHInput type="text" name="images" label="Images"></PHInput>
-                    <small className="flex items-center gap-x-2 text-[#a14916]">
-                      <IoMdInformationCircleOutline />{" "}
-                      <span>Upload multiple image links by adding comma</span>
-                    </small>
-                    <PHInput type="text" name="name" label="Name"></PHInput>
-                    <PHInput
-                      type="number"
-                      name="capacity"
-                      label="Capacity"
-                    ></PHInput>
-                    <PHInput
-                      type="number"
-                      name="floorNo"
-                      label="Floor No"
-                    ></PHInput>
-                    <PHInput
-                      type="number"
-                      name="roomNo"
-                      label="Room No"
-                    ></PHInput>
-                    <PHInput
-                      type="number"
-                      name="pricePerSlot"
-                      label="Price"
-                    ></PHInput>
-                    <PHInput
-                      type="text"
-                      name="amenities"
-                      label="Amenities"
-                    ></PHInput>
-                    <small className="flex items-center gap-x-2 text-[#a14916]">
-                      <IoMdInformationCircleOutline />{" "}
-                      <span>separate amenities by adding comma</span>
-                    </small>
+                  <PHForm onSubmit={onSubmit} defaultValues={specificSlot}>
+                    <PHInput type="text" name="startTime" label="Start Time" />
+                    <PHInput type="text" name="endTime" label="End Time" />
                     <div className="flex gap-2 mt-2 ml-auto">
                       <button
                         type="button"
@@ -180,7 +121,7 @@ export default function EditRoomModal({
                         type="submit"
                         className="inline-flex justify-center rounded-md bg-lime-400 px-3 py-2 text-sm font-semibold text-blue-900 shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto gap-x-2"
                       >
-                        {name && pricePerSlot ? "Update" : "Create"}
+                        {_id ? "Update" : "Create"}
                       </button>
                     </div>
                   </PHForm>

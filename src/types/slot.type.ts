@@ -1,9 +1,11 @@
+import { TRoom } from "./room.type";
+
 export type TSlot = {
-  _id: string;
+  _id?: string;
   date: string;
   startTime: string;
   endTime: string;
-  room: string;
+  room: string | TRoom;
   isBooked?: boolean;
 
   createdAt?: string;
