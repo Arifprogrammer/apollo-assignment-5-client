@@ -64,23 +64,6 @@ const Navbar = () => {
       )}
       {user && (
         <li className="hidden lg:block">
-          {/* <details className="dropdown">
-          <summary>
-            <img
-              src="https://i.ibb.co/TBz7QSQ/rugby-min.png"
-              alt="user"
-              className="rounded-full size-10 object-cover object-top"
-            />
-          </summary>
-          <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-fit p-2 shadow !-ms-4">
-            <li>
-              <a>Dashboard</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </details> */}
           <div className="dropdown !p-0">
             <div tabIndex={0} role="button">
               <TfiUser className="size-9" />

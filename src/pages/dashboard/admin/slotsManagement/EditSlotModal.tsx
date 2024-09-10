@@ -1,5 +1,5 @@
 /* eslint-disable no-prototype-builtins */
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { TRoom, TSlot } from "../../../../types";
 import PHForm from "../../../../components/form/PHForm";
@@ -11,6 +11,9 @@ import {
   useUpdateSlotMutation,
 } from "../../../../redux/features/slots/slotsApi";
 import { shake } from "radash";
+import Calendar from "react-calendar";
+import { useGetRoomsQuery } from "../../../../redux/features/rooms/roomsApi";
+import dayjs from "dayjs";
 
 interface EditSlotModalProps {
   open: boolean;
@@ -18,22 +21,37 @@ interface EditSlotModalProps {
   specificSlot: TSlot;
 }
 
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 export default function EditSlotModal({
   open,
   setOpen,
   specificSlot,
 }: EditSlotModalProps) {
+  //* react hooks
+  const [value, onChange] = useState<Value>(new Date());
+  const [selectedRoom, setSelectedRoom] = useState<TRoom | null>(null);
+
+  //* redux hooks
   const [updateSlot] = useUpdateSlotMutation();
   const [createSlot] = useCreateSlotMutation();
+  const { isLoading, data } = useGetRoomsQuery(undefined);
 
+  //* variables
   const { _id } = specificSlot;
+  const allRooms = data?.data as TRoom[];
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const mapData: TSlot = {
         _id: specificSlot._id,
-        date: specificSlot.date,
-        room: (specificSlot.room as TRoom)._id!,
+        date: _id
+          ? specificSlot.date
+          : dayjs(value as Date).format("YYYY-MM-DD"),
+        room: selectedRoom
+          ? selectedRoom._id!
+          : (specificSlot.room as TRoom)._id!,
         startTime: data.startTime,
         endTime: data.endTime,
       };
@@ -106,6 +124,40 @@ export default function EditSlotModal({
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-black text-left shadow-xl transition-all sm:my-8 w-11/12 lg:w-[800px]">
                 <div className="card-body p-5 md:p-8 gap-x-6 shadow-2xl text-black">
+                  {!_id && (
+                    <details className="dropdown mx-auto">
+                      <summary
+                        className={`btn bg-transparent hover:!bg-transparent !min-h-0 !w-80 !h-10 !rounded-md ${
+                          isLoading ? "text-gray-400" : "text-black"
+                        }`}
+                      >
+                        {selectedRoom ? selectedRoom.name : "Select Room"}
+                      </summary>
+
+                      {!isLoading && (
+                        <ul className="menu dropdown-content z-[1] !w-80 p-2 shadow bg-slate-50 !rounded-none border-b-2">
+                          {allRooms?.map((room) => (
+                            <li
+                              key={room._id}
+                              onClick={() => setSelectedRoom(room)}
+                              className="text-base p-2 hover:bg-gray-300 cursor-pointer"
+                            >
+                              {room.name}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </details>
+                  )}
+                  {!_id && (
+                    <div className="w-fit mx-auto">
+                      <Calendar
+                        onChange={onChange}
+                        value={value}
+                        minDate={new Date()}
+                      />
+                    </div>
+                  )}
                   <PHForm onSubmit={onSubmit} defaultValues={specificSlot}>
                     <PHInput type="text" name="startTime" label="Start Time" />
                     <PHInput type="text" name="endTime" label="End Time" />
@@ -120,6 +172,7 @@ export default function EditSlotModal({
                       <button
                         type="submit"
                         className="inline-flex justify-center rounded-md bg-lime-400 px-3 py-2 text-sm font-semibold text-blue-900 shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto gap-x-2"
+                        disabled={!_id && !selectedRoom}
                       >
                         {_id ? "Update" : "Create"}
                       </button>
