@@ -47,9 +47,11 @@ const Home = () => {
             <h4 className="text-sm md:text-xl lg:text-3xl font-semibold text-white">
               Efficient, hassle-free room booking for all your meeting needs.
             </h4>
-            <button className="btn bg-[#D62828] border-none text-white w-fit mx-auto font-bold">
-              Book Now
-            </button>
+            <Link to="/rooms" className="col-span-full w-fit mx-auto">
+              <button className="btn bg-[#D62828] border-none text-white w-fit mx-auto font-bold">
+                Book Now
+              </button>
+            </Link>
           </div>
         </div>
       </section>
