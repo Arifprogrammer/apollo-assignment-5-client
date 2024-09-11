@@ -50,10 +50,6 @@ const CheckoutForm = ({ room, date }: CheckoutFormProps) => {
   };
 
   //* effects
-  /* useEffect(() => {
-    if (booking) setOpen(true);
-  }, [booking]); */
-
   useEffect(() => {
     if (booking && !open) navigate("/dashboard/my-bookings");
   }, [booking, open, navigate]);

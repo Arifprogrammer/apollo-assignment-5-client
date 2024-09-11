@@ -44,7 +44,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
         {
           path: "/rooms/:id/booking",
           element: (
-            <ProtectedRoute role={undefined}>
+            <ProtectedRoute role="user">
               <Booking />
             </ProtectedRoute>
           ),
@@ -52,7 +52,7 @@ export const router: ReturnType<typeof createBrowserRouter> =
         {
           path: "/rooms/payment",
           element: (
-            <ProtectedRoute role={undefined}>
+            <ProtectedRoute role="user">
               <Payment />
             </ProtectedRoute>
           ),
