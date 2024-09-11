@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import About from "../pages/about/About";
-import Checkout from "../pages/checkout/Checkout";
 import Contact from "../pages/contact/Contact";
 import Dashboard from "../pages/dashboard/Dashboard";
 import RoomManagement from "../pages/dashboard/admin/roomsManagement/RoomManagement";
@@ -65,10 +64,6 @@ export const router: ReturnType<typeof createBrowserRouter> =
         {
           path: "/contact",
           element: <Contact />,
-        },
-        {
-          path: "/checkout",
-          element: <Checkout />,
         },
         {
           path: "/success",

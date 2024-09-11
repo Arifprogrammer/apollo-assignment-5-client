@@ -29,34 +29,16 @@ then go to: `http://localhost:5173/`
 - Calendar Management: Real-time availability checking and scheduling conflicts detection.
 - Booking Functionality: Seamless booking system with payment gateway.
 
-### Technology Stack
+### Configuration
 
-- React 🟢
-- Redux Toolkit 🌐
-- RTK Query 🍃
-- TypeScript 📘
+1. Create a .env.local file in the root directory of the project.
+2. Add necessary configuration variables in the .env file. Example:
 
-### Libraries
-
-- Headless UI
-- Hookform Resolver
-- React Rating
-- React Stripe JS
-- Stripe JS
-- Aos
-- dayjs
-- JWT Decode
-- Lottie React
-- Radash
-- React Calendar
-- React Hook Form
-- React Icons
-- React Router Dom
-- redux Persist
-- Sweetalert
-- Swiper
-- Zod
-
-### Live
-
+```html
+VITE_PAYMENT_GATEWAY_PK=your_stripe_public_key_here ### Technology Stack - React
+🟢 - Redux Toolkit 🌐 - RTK Query 🍃 - TypeScript 📘 ### Libraries - Headless UI
+- Hookform Resolver - React Rating - React Stripe JS - Stripe JS - Aos - dayjs -
+JWT Decode - Lottie React - Radash - React Calendar - React Hook Form - React
+Icons - React Router Dom - redux Persist - Sweetalert - Swiper - Zod ### Live
 [Link](https://mechanical-keyboard-shop-client.vercel.app)
+```
