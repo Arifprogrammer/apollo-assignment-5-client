@@ -17,7 +17,7 @@ const RoomsRowsTable = ({
 
   return (
     <>
-      <tr className="font-bold">
+      <tr className="font-bold text-nowrap">
         <th>{index + 1}</th>
         <td>{name}</td>
         <td>{roomNo}</td>

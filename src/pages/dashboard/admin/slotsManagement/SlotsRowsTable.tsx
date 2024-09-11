@@ -17,7 +17,7 @@ const SlotsRowsTable = ({
 
   return (
     <>
-      <tr className="font-bold">
+      <tr className="font-bold text-nowrap">
         <th>{index + 1}</th>
         <td>{(room as TRoom)?.name}</td>
         <td>{(room as TRoom)?.roomNo}</td>

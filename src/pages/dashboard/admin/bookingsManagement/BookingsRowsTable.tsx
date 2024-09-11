@@ -21,7 +21,7 @@ const BookingsRowsTable = ({
 
   return (
     <>
-      <tr className="font-bold">
+      <tr className="font-bold text-nowrap">
         <th>{index + 1}</th>
         <td>{(room as TRoom).name}</td>
         <td>{(user as TUser).name}</td>
