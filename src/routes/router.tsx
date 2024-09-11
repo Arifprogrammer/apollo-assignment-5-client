@@ -8,7 +8,6 @@ import ErrorPage from "../pages/errorPage/ErrorPage";
 import Home from "../pages/home/Home";
 import Rooms from "../pages/rooms/Rooms";
 import SingleRoom from "../pages/singleRoom/SingleRoom";
-import Success from "../pages/success/Success";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
@@ -64,10 +63,6 @@ export const router: ReturnType<typeof createBrowserRouter> =
         {
           path: "/contact",
           element: <Contact />,
-        },
-        {
-          path: "/success",
-          element: <Success />,
         },
       ],
     },
