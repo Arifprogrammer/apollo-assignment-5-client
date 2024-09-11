@@ -28,8 +28,8 @@ const adminMenus = [
     name: "Slots Management",
   },
   {
-    path: "/dashboard/users",
-    name: "Users Management",
+    path: "/dashboard/bookings",
+    name: "Bookings Management",
   },
 ];
 

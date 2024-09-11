@@ -1,8 +1,8 @@
 import { useGetMyBookingsQuery } from "../../../../redux/features/bookings/bookingsApi";
 import { TBooking } from "../../../../types";
-import BookingsRowsTable from "./BookingsRowsTable";
+import MyBookingsRowsTable from "./MyBookingsRowsTable";
 
-const BookingsManagement = () => {
+const MyBookingsManagement = () => {
   //* redux hooks
   const { data, isLoading } = useGetMyBookingsQuery(undefined);
   const bookings = data?.data as TBooking[];
@@ -23,7 +23,7 @@ const BookingsManagement = () => {
           <tbody>
             {bookings?.length &&
               bookings.map((booking, index) => (
-                <BookingsRowsTable
+                <MyBookingsRowsTable
                   key={booking._id}
                   booking={booking}
                   index={index}
@@ -48,4 +48,4 @@ const BookingsManagement = () => {
   );
 };
 
-export default BookingsManagement;
+export default MyBookingsManagement;

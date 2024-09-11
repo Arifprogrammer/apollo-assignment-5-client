@@ -5,7 +5,7 @@ interface RoomsRowsTableProps {
   index: number;
 }
 
-const BookingsRowsTable = ({ booking, index }: RoomsRowsTableProps) => {
+const MyBookingsRowsTable = ({ booking, index }: RoomsRowsTableProps) => {
   const { room, slots, isConfirmed, date } = booking;
 
   return (
@@ -27,4 +27,4 @@ const BookingsRowsTable = ({ booking, index }: RoomsRowsTableProps) => {
   );
 };
 
-export default BookingsRowsTable;
+export default MyBookingsRowsTable;

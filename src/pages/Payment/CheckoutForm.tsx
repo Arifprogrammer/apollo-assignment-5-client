@@ -29,7 +29,7 @@ const CheckoutForm = ({ room, date }: CheckoutFormProps) => {
   const [clientSecret, setClientSecret] = useState("");
   const [booking, setBooking] = useState<TBooking | null>(null);
   const [process, setProcess] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   //* third-party hooks
   const stripe = useStripe();
   const elements = useElements();
@@ -50,9 +50,9 @@ const CheckoutForm = ({ room, date }: CheckoutFormProps) => {
   };
 
   //* effects
-  useEffect(() => {
+  /* useEffect(() => {
     if (booking) setOpen(true);
-  }, [booking]);
+  }, [booking]); */
 
   useEffect(() => {
     if (booking && !open) navigate("/dashboard/my-bookings");
@@ -142,6 +142,19 @@ const CheckoutForm = ({ room, date }: CheckoutFormProps) => {
 
     handleCreatePaymentIntent();
   }, [price, createPaymentIntent, selectedSlots.length]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      return "Are you sure you want to leave? Your data may be lost.";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
   return (
     <>
       <section className="min-h-screen  py-8 lg:py-20 px-4 md:px-8 lg:px-0 lg:w-1/2 lg:mx-auto text-black flex flex-col items-center">

@@ -1,13 +1,12 @@
-import { TBooking, TRoom } from "../../../types";
+import { TBooking } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const bookingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getBookings: builder.query({
-      query: (params: { date: string; roomId: string }) => ({
+      query: () => ({
         url: `/bookings`,
         method: "GET",
-        params: params,
       }),
       providesTags: ["bookings"],
     }),
@@ -42,11 +41,11 @@ const bookingsApi = baseApi.injectEndpoints({
     }),
 
     updateBooking: builder.mutation({
-      query: (room: TRoom) => {
+      query: (body: { id: string; isConfirmed: "confirmed" | "canceled" }) => {
         return {
-          url: `/products/${room._id}`,
+          url: `/bookings/${body.id}`,
           method: "PUT",
-          body: room,
+          body: { isConfirmed: body.isConfirmed },
         };
       },
       invalidatesTags: ["bookings"],
@@ -55,7 +54,7 @@ const bookingsApi = baseApi.injectEndpoints({
     deleteBooking: builder.mutation({
       query: (id: string) => {
         return {
-          url: `/rooms/${id}`,
+          url: `/bookings/${id}`,
           method: "DELETE",
         };
       },

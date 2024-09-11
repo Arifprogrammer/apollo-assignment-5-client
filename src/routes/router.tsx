@@ -15,8 +15,9 @@ import Login from "../pages/auth/Login";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
 import Booking from "../pages/booking/Booking";
 import Payment from "../pages/Payment/Payment";
-import BookingsManagement from "../pages/dashboard/user/bookingsManagement/BookingsManagement";
 import SlotManagement from "../pages/dashboard/admin/slotsManagement/SlotManagement";
+import MyBookingsManagement from "../pages/dashboard/user/myBookingsManagement/MyBookingsManagement";
+import BookingsManagement from "../pages/dashboard/admin/bookingsManagement/BookingsManagement";
 
 export const router: ReturnType<typeof createBrowserRouter> =
   createBrowserRouter([
@@ -97,12 +98,20 @@ export const router: ReturnType<typeof createBrowserRouter> =
             </ProtectedRoute>
           ),
         },
+        {
+          path: "/dashboard/bookings",
+          element: (
+            <ProtectedRoute role="admin">
+              <BookingsManagement />
+            </ProtectedRoute>
+          ),
+        },
         //* user routes
         {
           path: "/dashboard/my-bookings",
           element: (
             <ProtectedRoute role="user">
-              <BookingsManagement />
+              <MyBookingsManagement />
             </ProtectedRoute>
           ),
         },

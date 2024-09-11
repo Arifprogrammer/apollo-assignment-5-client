@@ -63,7 +63,7 @@ const SlotManagement = () => {
         className="w-fit btn bg-black text-white mt-4 md:mt-0 mb-2"
         onClick={() => handleCreateSlot()}
       >
-        Add Room
+        Add Slot
       </button>
       <div className="overflow-x-auto min-h-fit text-slate-800 mb-4">
         <table className="table">
