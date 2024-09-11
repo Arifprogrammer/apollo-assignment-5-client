@@ -1,30 +1,62 @@
-# React + TypeScript + Vite
+# Reserve Realm - a Meeting Booking System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Welcome to the Reserve Realm Client
 
-Currently, two official plugins are available:
+A robust frontend for managing and booking meetings. The client-side manages user accounts, meeting schedules, availability, and booking functionalities.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
 
-## Expanding the ESLint configuration
+Reserve Realm project require **Node** and **npm** (Npm come out of the box with nodejs)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Installation
 
-- Configure the top-level `parserOptions` property like this:
+- Make sure you latest version of nodejs installed then run the following commands:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```html
+git clone https://github.com/Arifprogrammer/apollo-assignment-5-client.git //
+clone the project first pnpm i // run the command on the root of the project
+pnpm dev // run the command on the root of the project to start the project
+locally
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+then go to: `http://localhost:5173/`
+
+### Key Features
+
+- User Management: User registration and login.
+- Room Management: Robust Rooms Filtering & admin can access, create, update & delete room.
+- Meeting Scheduling: Creation, modification, and deletion of meetings.
+- Calendar Management: Real-time availability checking and scheduling conflicts detection.
+- Booking Functionality: Seamless booking system with payment gateway.
+
+### Technology Stack
+
+- React 🟢
+- Redux Toolkit 🌐
+- RTK Query 🍃
+- TypeScript 📘
+
+### Libraries
+
+- Headless UI
+- Hookform Resolver
+- React Rating
+- React Stripe JS
+- Stripe JS
+- Aos
+- dayjs
+- JWT Decode
+- Lottie React
+- Radash
+- React Calendar
+- React Hook Form
+- React Icons
+- React Router Dom
+- redux Persist
+- Sweetalert
+- Swiper
+- Zod
+
+### Live
+
+[Link](https://mechanical-keyboard-shop-client.vercel.app)
