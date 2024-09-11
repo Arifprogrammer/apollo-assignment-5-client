@@ -88,7 +88,11 @@ export const router: ReturnType<typeof createBrowserRouter> =
         //* admin routes
         {
           path: "/dashboard/rooms",
-          element: <RoomManagement />,
+          element: (
+            <ProtectedRoute role="admin">
+              <RoomManagement />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/dashboard/slots",

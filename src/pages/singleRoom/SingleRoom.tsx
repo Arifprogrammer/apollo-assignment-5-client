@@ -29,7 +29,7 @@ const SingleRoom = () => {
                     <img
                       src={image}
                       alt=""
-                      className="rounded-2xl shadow-lg md:shadow-md shadow-rose-600"
+                      className="rounded-2xl shadow-lg shadow-rose-600"
                     />
                   </div>
                 )
