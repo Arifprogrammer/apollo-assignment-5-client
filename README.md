@@ -21,6 +21,11 @@ locally
 
 then go to: `http://localhost:5173/`
 
+### Credentials
+
+Admin - abc@abc.com | 1234
+User - abc@xyz.com | 1234
+
 ### Key Features
 
 - User Management: User registration and login.

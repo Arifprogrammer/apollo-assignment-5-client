@@ -37,7 +37,7 @@ const MainLayout = () => {
       <Footer />
       {isVisible && (
         <div
-          className="fixed bottom-8 right-8 text-3xl text-[#F77F00] z-50 cursor-pointer transition-opacity duration-300 opacity-70 hover:opacity-100"
+          className="fixed bottom-8 right-4 md:right-8 text-3xl md:text-4xl text-[#F77F00] z-50 cursor-pointer transition-opacity duration-300 opacity-70 hover:opacity-100"
           onClick={scrollToTop}
         >
           <FaCircleArrowUp className="animate-bounce" />
