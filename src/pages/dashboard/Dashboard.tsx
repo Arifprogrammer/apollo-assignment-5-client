@@ -56,7 +56,7 @@ const Dashboard = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu px-4 min-h-full bg-slate-900 max-w-48 md:!max-w-64 w-full text-base-content space-y-6 flex flex-col justify-center">
+          <ul className="menu px-4 min-h-full bg-slate-900 max-w-52 md:!max-w-64 w-full text-base-content space-y-6 flex flex-col justify-center">
             {/* Sidebar content here */}
             {user?.role === "user"
               ? userMenus.map((userMenu) => (

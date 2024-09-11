@@ -1,9 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { useGetSingleRoomsQuery } from "../../redux/features/rooms/roomsApi";
 import { TRoom } from "../../types";
+import { useAppSelector } from "../../redux/hook";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 
 const SingleRoom = () => {
   const { id } = useParams();
+  const user = useAppSelector(selectCurrentUser);
   const { data } = useGetSingleRoomsQuery(id!);
   const room = data?.data as TRoom;
 
@@ -54,11 +57,13 @@ const SingleRoom = () => {
               </div>
               <div>
                 <p className="font-bold text-lg">Price: ${room.pricePerSlot}</p>
-                <Link to={`/rooms/${room._id}/booking`}>
-                  <button className="btn bg-[#D62828] border-none text-white w-fit font-bold mt-4">
-                    Book Now
-                  </button>
-                </Link>
+                {user?.role === "user" && (
+                  <Link to={`/rooms/${room._id}/booking`}>
+                    <button className="btn bg-[#D62828] border-none text-white w-fit font-bold mt-4">
+                      Book Now
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

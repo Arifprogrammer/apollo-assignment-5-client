@@ -152,22 +152,32 @@ const Navbar = () => {
           <ul className="menu menu-horizontal mr-3 gap-4 hidden lg:flex items-center">
             {listItem}
           </ul>
-          <div className="dropdown lg:hidden mr-2 !p-0">
-            <div tabIndex={0} role="button">
-              <TfiUser className="size-9" />
+          {user && (
+            <div className="dropdown lg:hidden mr-2 !p-0">
+              <div tabIndex={0} role="button">
+                <TfiUser className="size-9" />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-base-100 rounded-box z-[1] w-fit p-2 shadow right-0 top-12"
+              >
+                {user.role === "admin" ? (
+                  <li>
+                    <Link to="/dashboard/rooms">Dashboard</Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link to="/dashboard/my-bookings" className="text-nowrap">
+                      My bookings
+                    </Link>
+                  </li>
+                )}
+                <li onClick={handleLogout}>
+                  <a>Logout</a>
+                </li>
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-fit p-2 shadow right-0 top-12"
-            >
-              <li>
-                <a>Dashboard</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
+          )}
         </div>
       </div>
     </section>
